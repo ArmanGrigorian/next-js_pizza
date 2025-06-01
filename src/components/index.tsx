@@ -1,8 +1,15 @@
-export { default as Container } from "./layout/Container";
-export { default as Header } from "./layout/header/Header";
-export { default as LeftSide } from "./layout/header/LeftSide";
-export { default as RightSide } from "./layout/header/RightSide";
-export { default as SearchInput } from "./layout/header/SearchInput";
+export { default as Container } from "./shared/Container";
+export { default as FilterCheckbox } from "./shared/filtration/FilterCheckbox";
+export { default as Filters } from "./shared/filtration/Filters";
+export { default as FiltersCheckboxGroup } from "./shared/filtration/FiltersCheckboxGroup";
+export { default as Header } from "./shared/header/Header";
+export { default as LeftSide } from "./shared/header/LeftSide";
+export { default as RightSide } from "./shared/header/RightSide";
+export { default as SearchInput } from "./shared/header/SearchInput";
+export { default as Title } from "./shared/Title";
+export { default as Categories } from "./shared/top-bar/Categories";
+export { default as SortPopup } from "./shared/top-bar/SortPopup";
+export { default as TopBar } from "./shared/top-bar/TopBar";
 export { Button, buttonVariants } from "./ui/Button";
 export { Checkbox } from "./ui/Checkbox";
 export {
