@@ -1,9 +1,3 @@
-import { Button } from "@/components/ui/button";
-
 export default function Home() {
-	return (
-		<>
-			<Button variant="outline">Cart</Button>
-		</>
-	);
+  return <main className="max-w-full-hd mx-auto min-h-dvh"></main>;
 }
