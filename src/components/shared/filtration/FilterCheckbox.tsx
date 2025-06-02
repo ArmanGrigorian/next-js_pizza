@@ -1,5 +1,4 @@
 import { Checkbox } from "@/components";
-import React from "react";
 
 export interface FilterCheckboxProps {
   text: string;

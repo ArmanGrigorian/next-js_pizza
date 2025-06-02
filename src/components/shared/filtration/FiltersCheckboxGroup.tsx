@@ -62,8 +62,8 @@ const FiltersCheckboxGroup: React.FC<Props> = ({
     : (defaultItems || items).slice(0, limit);
 
   return (
-    <div className={className}>
-      <p className="mb-3 font-bold">{title}</p>
+    <fieldset className={className}>
+      <legend className="mb-3 block font-bold">{title}</legend>
 
       {showAll && (
         <div className="mb-5">
@@ -78,7 +78,7 @@ const FiltersCheckboxGroup: React.FC<Props> = ({
       <div className="scrollbar flex max-h-96 flex-col gap-4 overflow-auto pr-2">
         {list.map((item, index) => (
           <FilterCheckbox
-            key={index}
+            key={item.value + index}
             text={item.text}
             value={item.value}
             endAdornment={item.endAdornment}
@@ -99,7 +99,7 @@ const FiltersCheckboxGroup: React.FC<Props> = ({
           </button>
         </div>
       )}
-    </div>
+    </fieldset>
   );
 };
 

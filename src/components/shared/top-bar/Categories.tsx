@@ -1,7 +1,9 @@
 "use client";
 
+import { useCategoryStore } from "@/components/providers/CategoryStoreProvider";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+
+import Link from "next/link";
 
 const categoriesList = [
   "Pizzas",
@@ -14,16 +16,20 @@ const categoriesList = [
 ];
 
 interface CategoriesProps {
+  // items: Category[];
   className?: string;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ className }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+const Categories: React.FC<CategoriesProps> = ({
+  // items,
+  className,
+}) => {
+  const categoryActiveId = useCategoryStore((state) => state.activeId);
 
   return (
     <ul className={cn("flex gap-1 rounded-2xl bg-gray-50 p-1", className)}>
       {categoriesList.map((category, idx) => {
-        const isActive = idx === activeIndex;
+        const isActive = idx === categoryActiveId;
 
         return (
           <li
@@ -32,9 +38,8 @@ const Categories: React.FC<CategoriesProps> = ({ className }) => {
               "flex h-11 cursor-pointer items-center rounded-2xl px-5 font-bold",
               isActive && "text-primary bg-white shadow-md shadow-gray-200",
             )}
-            onClick={() => setActiveIndex(idx)}
           >
-            {category}
+            <Link href={`/#${category}`}>{category}</Link>
           </li>
         );
       })}
