@@ -23,7 +23,8 @@
       "@/components/": ["./src/components/index.ts"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/utils": ["./src/lib/utils.ts"]
+      "@/utils": ["./src/lib/utils.ts"],
+      "@/prisma/*": ["./prisma/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
