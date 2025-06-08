@@ -1,24 +1,24 @@
 import { createStore } from "zustand";
 
-export type StateType = {
-  activeId: number;
+export type CategoryStoreStateType = {
+  activeCategory: number;
 };
 
-export type ActionType = {
-  setActiveId: (activeId: number) => void;
+export type CategoryStoreActionType = {
+  setActiveCategory: (activeCategory: number) => void;
 };
 
-export type CategoryStoreType = StateType & ActionType;
+export type CategoryStoreType = CategoryStoreStateType & CategoryStoreActionType;
 
-export const defaultInitState: StateType = {
-  activeId: 0,
+export const defaultInitState: CategoryStoreStateType = {
+  activeCategory: 0,
 };
 
 export const createCategoryStore = (
-  initState: StateType = defaultInitState,
+  initState: CategoryStoreStateType = defaultInitState,
 ) => {
   return createStore<CategoryStoreType>()((set) => ({
     ...initState,
-    setActiveId: (activeId: number) => set({ activeId }),
+    setActiveCategory: (activeCategory: number) => set({ activeCategory }),
   }));
 };

@@ -1,17 +1,17 @@
 "use client";
 
-import { FilterCheckbox, Input, Skeleton } from "@/components";
+import { FilterCheckbox, IngredientsSkeleton, Input } from "@/components";
 import { useState } from "react";
 import type { FilterCheckboxProps } from "./FilterCheckbox";
 
 type Item = FilterCheckboxProps;
 
-interface Props {
+interface FiltersCheckboxGroupProps {
   title: string;
   items: Item[];
   defaultItems?: Item[];
   limit?: number;
-  loading?: boolean;
+  isLoading?: boolean;
   searchInputPlaceholder?: string;
   onClickCheckbox?: (id: string) => void;
   defaultValue?: string[];
@@ -20,14 +20,14 @@ interface Props {
   name?: string;
 }
 
-const FiltersCheckboxGroup: React.FC<Props> = ({
+const FiltersCheckboxGroup: React.FC<FiltersCheckboxGroupProps> = ({
   title,
   items,
   defaultItems,
-  limit = 5,
-  searchInputPlaceholder = "Поиск...",
+  limit = 6,
+  searchInputPlaceholder = "Search...",
   className,
-  loading,
+  isLoading,
   onClickCheckbox,
   selected,
   name,
@@ -35,31 +35,19 @@ const FiltersCheckboxGroup: React.FC<Props> = ({
   const [showAll, setShowAll] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const list = showAll
+    ? items.filter((item) =>
+        item.text.toLowerCase().includes(searchValue.toLowerCase()),
+      )
+    : (defaultItems || items).slice(0, limit);
+
   const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
-  if (loading) {
-    return (
-      <div className={className}>
-        <p className="mb-3 font-bold">{title}</p>
-
-        {...Array(limit)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} className="mb-4 h-6 rounded-[8px]" />
-          ))}
-
-        <Skeleton className="mb-4 h-6 w-28 rounded-[8px]" />
-      </div>
-    );
+  if (isLoading) {
+    return <IngredientsSkeleton title={title} limit={limit} />;
   }
-
-  const list = showAll
-    ? items.filter((item) =>
-        item.text.toLowerCase().includes(searchValue.toLocaleLowerCase()),
-      )
-    : (defaultItems || items).slice(0, limit);
 
   return (
     <fieldset className={className}>
@@ -92,10 +80,11 @@ const FiltersCheckboxGroup: React.FC<Props> = ({
       {items.length > limit && (
         <div className={showAll ? "mt-4 border-t border-t-neutral-100" : ""}>
           <button
+            type="button"
             onClick={() => setShowAll(!showAll)}
             className="text-primary mt-3"
           >
-            {showAll ? "Скрыть" : "+ Показать все"}
+            {showAll ? "Hide" : "+ Show all"}
           </button>
         </div>
       )}

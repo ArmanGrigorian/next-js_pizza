@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const LeftSide: React.FC = () => {
   return (
-    <div className="flex items-center gap-4">
+    <Link href="/" className="flex items-center gap-4">
       <Image
         src="/logo.png"
         width={35}
@@ -18,7 +19,7 @@ const LeftSide: React.FC = () => {
           It couldn&apos;t be tastier
         </p>
       </hgroup>
-    </div>
+    </Link>
   );
 };
 

@@ -1,55 +1,76 @@
-import { Input, RangeSlider, Title } from "@/components";
+"use client";
+
+import { FiltersCheckboxGroup, Input, RangeSlider, Title } from "@/components";
+import useFilters from "@/hooks/useFilters";
+import { useRouter } from "next/navigation";
+import qs from "qs";
+import { useDebounce } from "react-use";
 
 interface FiltersProps {
   className?: string;
 }
 
 const Filters: React.FC<FiltersProps> = ({ className }) => {
-  // const { ingredients, loading } = useIngredients();
-  // const filters = useFilters();
+  const router = useRouter();
+
+  const {
+    ingredients,
+    selectedIngredients,
+    selectedDoughs,
+    selectedSizes,
+    price,
+    setSelectedIngredients,
+    setSelectedDoughs,
+    setSelectedSizes,
+    setPrice,
+    updatePrice,
+    filters,
+    isLoading,
+  } = useFilters();
 
   // useQueryFilters(filters);
 
-  // const items = ingredients.map((item) => ({
-  //   value: String(item.id),
-  //   text: item.name,
-  // }));
+  const items = ingredients.map((item) => ({
+    value: String(item.id),
+    text: item.name,
+  }));
 
-  // const updatePrices = (prices: number[]) => {
-  //   console.log(prices, 999);
-  //   filters.setPrices("priceFrom", prices[0]);
-  //   filters.setPrices("priceTo", prices[1]);
-  // };
+  const query = qs.stringify(filters, {
+    arrayFormat: "comma",
+  });
 
+  useDebounce(() => router.push(`?${query}`, { scroll: false }), 320, [
+    filters,
+  ]);
 
   return (
     <form className={className}>
       <Title text="Filters" size="sm" className="mb-5 font-bold" />
 
-      {/* <FiltersCheckboxGroup
+      <FiltersCheckboxGroup
         title="Type of dough"
-        name="pizzaTypes"
+        name="doughs"
         className="flex flex-col gap-4 border-b border-b-neutral-100 pb-7"
-        onClickCheckbox={filters.setPizzaTypes}
-        selected={filters.pizzaTypes}
+        onClickCheckbox={setSelectedDoughs}
+        selected={selectedDoughs}
         items={[
           { text: "Thin", value: "1" },
           { text: "Classic", value: "2" },
         ]}
-      /> */}
+      />
 
-      {/* <FiltersCheckboxGroup
+      <FiltersCheckboxGroup
         title="Sizes"
         name="sizes"
         className="mt-5 border-b border-b-neutral-100 pt-6 pb-7"
-        onClickCheckbox={filters.setSizes}
-        selected={filters.sizes}
+        onClickCheckbox={setSelectedSizes}
+        selected={selectedSizes}
         items={[
           { text: "20 sm", value: "20" },
           { text: "30 sm", value: "30" },
           { text: "40 sm", value: "40" },
         ]}
-      /> */}
+      />
 
       <fieldset className="mt-5 border-b border-b-neutral-100 pt-6 pb-7">
         <legend className="mb-3 block font-bold">Price from and to:</legend>
@@ -59,34 +80,41 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
             placeholder="0"
             min={0}
             max={1000}
-            defaultValue={0}
+            value={price.from}
+            onChange={(e) =>
+              setPrice({ ...price, from: Number(e.target.value) })
+            }
           />
-          <Input type="number" placeholder="1000" min={100} max={1000} />
+          <Input
+            type="number"
+            placeholder="1000"
+            min={100}
+            max={1000}
+            value={price.to}
+            onChange={(e) => setPrice({ ...price, to: Number(e.target.value) })}
+          />
         </div>
 
         <RangeSlider
           min={0}
           max={1000}
           step={10}
-          // value={[
-          //   filters.prices.priceFrom || 0,
-          //   filters.prices.priceTo || 1000,
-          // ]}
-          // onValueChange={updatePrices}
+          value={[price.from || 0, price.to || 1000]}
+          onValueChange={updatePrice}
         />
       </fieldset>
 
-      {/* <FiltersCheckboxGroup
+      <FiltersCheckboxGroup
         title="Ingredients"
         name="ingredients"
         className="mt-5 border-b border-b-neutral-100 pt-6 pb-7"
         limit={6}
         defaultItems={items.slice(0, 6)}
         items={items}
-        loading={loading}
-        onClickCheckbox={filters.setSelectedIngredients}
-        selected={filters.selectedIngredients}
-      /> */}
+        isLoading={isLoading}
+        onClickCheckbox={setSelectedIngredients}
+        selected={selectedIngredients}
+      />
     </form>
   );
 };

@@ -1,11 +1,12 @@
 // "use client";
 
 // import { cn } from "@/lib/utils";
-// import { useCategoryStore } from "@/store";
+
 // import { useEffect, useRef } from "react";
 // import { useIntersection } from "react-use";
 // import Title from "../Title";
 // import ProductCard from "./ProductCard";
+// import { useCategoryStore } from "@/components/providers/ZustandStoreProvider";
 
 // interface Props {
 //   title: string;
@@ -22,7 +23,7 @@
 //   categoryId,
 //   className,
 // }) => {
-//   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
+//   const {activeId, setActiveId} = useCategoryStore();
 //   const intersectionRef = useRef(null);
 //   const intersection = useIntersection(intersectionRef, {
 //     threshold: 0.4,
@@ -30,7 +31,7 @@
 
 //   useEffect(() => {
 //     if (intersection?.isIntersecting) {
-//       setActiveCategoryId(categoryId);
+//       setActiveId(categoryId);
 //     }
 //   }, [categoryId, intersection?.isIntersecting, title]);
 

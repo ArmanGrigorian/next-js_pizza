@@ -2,7 +2,7 @@ import { Container, Filters, ProductsMenu, Title, TopBar } from "@/components";
 
 import { Suspense } from "react";
 
-export default async function Home() {
+export default async function HomePage() {
   return (
     <main className="min-h-dvh">
       <Container>

@@ -1,12 +1,15 @@
+export { ZustandStoreProvider } from "./providers/ZustandStoreProvider";
 export { default as Container } from "./shared/Container";
 export { default as FilterCheckbox } from "./shared/filtration/FilterCheckbox";
 export { default as Filters } from "./shared/filtration/Filters";
 export { default as FiltersCheckboxGroup } from "./shared/filtration/FiltersCheckboxGroup";
+export { default as IngredientsSkeleton } from "./shared/filtration/IngredientsSkeleton";
 export { default as RangeSlider } from "./shared/filtration/RangeSlider";
 export { default as Header } from "./shared/header/Header";
 export { default as LeftSide } from "./shared/header/LeftSide";
 export { default as RightSide } from "./shared/header/RightSide";
 export { default as SearchInput } from "./shared/header/SearchInput";
+export { default as SearchList } from "./shared/header/SearchList";
 export { default as ProductCard } from "./shared/products/ProductCard";
 // export { default as ProductsGroupList } from "./shared/products/ProductsGroupList";
 export { default as ProductsMenu } from "./shared/products/ProductsMenu";

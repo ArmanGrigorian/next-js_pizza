@@ -28,9 +28,9 @@ export const ingredients = [
     imageUrl: "/images/creamy-mozzarella.png",
   },
   {
-    name: "Cheddar And Parmesan Cheeses",
+    name: "Cheddar And Parmesan",
     price: 79,
-    imageUrl: "/images/cheddar-and-parmesan-cheeses.png",
+    imageUrl: "/images/cheddar-and-parmesan.png",
   },
   {
     name: "Hot Jalapeno Pepper",

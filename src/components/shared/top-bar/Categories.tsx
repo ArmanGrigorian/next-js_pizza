@@ -1,6 +1,6 @@
 "use client";
 
-import { useCategoryStore } from "@/components/providers/CategoryStoreProvider";
+import { useCategoryStore } from "@/components/providers/ZustandStoreProvider";
 import { cn } from "@/lib/utils";
 
 import Link from "next/link";
@@ -24,15 +24,16 @@ const Categories: React.FC<CategoriesProps> = ({
   // items,
   className,
 }) => {
-  const categoryActiveId = useCategoryStore((state) => state.activeId);
+  const { activeCategory, setActiveCategory } = useCategoryStore();
 
   return (
     <ul className={cn("flex gap-1 rounded-2xl bg-gray-50 p-1", className)}>
       {categoriesList.map((category, idx) => {
-        const isActive = idx === categoryActiveId;
+        const isActive = idx === activeCategory;
 
         return (
           <li
+            onClick={() => setActiveCategory(idx)}
             key={category}
             className={cn(
               "flex h-11 cursor-pointer items-center rounded-2xl px-5 font-bold",
