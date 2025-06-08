@@ -26,14 +26,18 @@ model User {
   password String
   role     UserRole @default(USER)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  verifiedAt DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  cart             Cart?
-  orders           Order[]
+  cart Cart?
+
+  orders Order[]
+
   verificationCode VerificationCode?
-  provider         String?
-  providerId       String?
+
+  provider   String?
+  providerId String?
 }
 
 model Cart {
@@ -46,8 +50,9 @@ model Cart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user     User?      @relation(fields: [userId], references: [id])
-  userId   Int?       @unique
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?  @unique
+
   cartItem CartItem[]
 }
 
@@ -111,6 +116,7 @@ model Ingredient {
   updatedAt DateTime @updatedAt
 
   products Product[]
+
   cartItem CartItem[]
 }
 
@@ -126,7 +132,8 @@ model Product {
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
-  ingredients  Ingredient[]
+  ingredients Ingredient[]
+
   productItems ProductItem[]
 }
 
@@ -140,8 +147,9 @@ model ProductItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  product   Product    @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
   productId Int
+
   cartItems CartItem[]
 }
 
@@ -156,4 +164,25 @@ model VerificationCode {
   userId Int  @unique
 
   @@unique([userId, code])
+}
+
+model Story {
+  id Int @id @default(autoincrement())
+
+  previewImageUrl String
+
+  createdAt DateTime @default(now())
+
+  items StoryItem[]
+}
+
+model StoryItem {
+  id Int @id @default(autoincrement())
+
+  sourceUrl String
+
+  createdAt DateTime @default(now())
+
+  story   Story @relation(fields: [storyId], references: [id])
+  storyId Int
 }
