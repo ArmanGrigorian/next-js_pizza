@@ -22,7 +22,9 @@ export interface StoreProviderProps {
   children: ReactNode;
 }
 
-export const ZustandStoreProvider = ({ children }: StoreProviderProps) => {
+export const ZustandStoreProvider: React.FC<StoreProviderProps> = ({
+  children,
+}: StoreProviderProps) => {
   const categoryStoreRef = useRef<CategoryStoreApi | null>(null);
   const searchStoreRef = useRef<SearchStoreApi | null>(null);
 

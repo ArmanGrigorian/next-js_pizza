@@ -1,9 +1,8 @@
 "use client";
 
 import { FiltersCheckboxGroup, Input, RangeSlider, Title } from "@/components";
-import useFilters from "@/hooks/useFilters";
-import { useRouter } from "next/navigation";
-import qs from "qs";
+import { useFilters, useIngredients, useQueryFilters } from "@/hooks";
+
 import { useDebounce } from "react-use";
 
 interface FiltersProps {
@@ -11,10 +10,8 @@ interface FiltersProps {
 }
 
 const Filters: React.FC<FiltersProps> = ({ className }) => {
-  const router = useRouter();
-
+  const { ingredientsList, isLoading } = useIngredients();
   const {
-    ingredients,
     selectedIngredients,
     selectedDoughs,
     selectedSizes,
@@ -23,25 +20,11 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
     setSelectedDoughs,
     setSelectedSizes,
     setPrice,
-    updatePrice,
-    filters,
-    isLoading,
+    params,
   } = useFilters();
+  const { queryFilters } = useQueryFilters({ params });
 
-  // useQueryFilters(filters);
-
-  const items = ingredients.map((item) => ({
-    value: String(item.id),
-    text: item.name,
-  }));
-
-  const query = qs.stringify(filters, {
-    arrayFormat: "comma",
-  });
-
-  useDebounce(() => router.push(`?${query}`, { scroll: false }), 320, [
-    filters,
-  ]);
+  useDebounce(queryFilters, 280, [params]);
 
   return (
     <form className={className}>
@@ -100,7 +83,9 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
           max={1000}
           step={10}
           value={[price.from || 0, price.to || 1000]}
-          onValueChange={updatePrice}
+          onValueChange={(values) =>
+            setPrice({ from: values[0], to: values[1] })
+          }
         />
       </fieldset>
 
@@ -109,8 +94,8 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
         name="ingredients"
         className="mt-5 border-b border-b-neutral-100 pt-6 pb-7"
         limit={6}
-        defaultItems={items.slice(0, 6)}
-        items={items}
+        defaultItems={ingredientsList.slice(0, 6)}
+        items={ingredientsList}
         isLoading={isLoading}
         onClickCheckbox={setSelectedIngredients}
         selected={selectedIngredients}
