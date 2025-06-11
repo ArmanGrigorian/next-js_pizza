@@ -1,51 +1,57 @@
 import Link from "next/link";
 
-import { Button, Title } from "@/components";
+import { Button } from "@/components";
+import { Ingredient } from "@prisma/client";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
 interface Props {
   id: number;
   name: string;
-  price: number;
+  // price: number;
   imageUrl: string;
-  // ingredients: Ingredient[];
+  ingredients: Ingredient[];
   className?: string;
 }
 
 const ProductCard: React.FC<Props> = ({
   id,
   name,
-  price,
+  // price,
   imageUrl,
-  // ingredients,
+  ingredients,
   className,
 }) => {
   return (
     <article>
       <Link href={`/product/${id}`} className={className}>
-        <div className="bg-secondary flex h-[260px] justify-center rounded-lg p-6">
+        <div className="flex h-53 justify-center rounded-lg bg-gray-50 p-6 lg:h-64">
           <Image
             src={imageUrl}
             alt={name}
             width={215}
             height={215}
-            className="h-[215px] w-[215px]"
+            className="size-44 lg:size-52"
           />
         </div>
 
-        <Title text={name} size="sm" className="mt-3 mb-1 font-bold" />
+        <h4 className="text-custom-black-200 mt-3 mb-0.5 text-lg font-bold lg:text-xl">
+          {name}
+        </h4>
 
-        <p className="text-sm text-gray-400">
-          {/* {ingredients.map((ingredient) => ingredient.name).join(', ')} */}
+        <p className="text-custom-grey-400 text-sm lg:text-base">
+          {ingredients.map((ingredient) => ingredient.name).join(", ")}
         </p>
 
         <div className="mt-4 flex items-center justify-between">
-          <span className="text-[20px]">
+          {/* <span className="text-[20px]">
             от <b>{price} ₽</b>
-          </span>
+          </span> */}
 
-          <Button variant="secondary" className="text-base font-bold">
+          <Button
+            variant="secondary"
+            className="bg-gray-50 text-sm font-bold lg:text-base"
+          >
             <Plus size={20} className="mr-1" />
             Add
           </Button>

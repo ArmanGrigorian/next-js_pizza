@@ -63,7 +63,7 @@ const FiltersCheckboxGroup: React.FC<FiltersCheckboxGroupProps> = ({
         </div>
       )}
 
-      <div className="scrollbar flex max-h-96 flex-col gap-4 overflow-auto pr-2">
+      <div className="scrollbar flex max-h-40 lg:max-h-96 flex-col gap-4 overflow-y-auto px-2">
         {list.map((item, index) => (
           <FilterCheckbox
             key={item.value + index}

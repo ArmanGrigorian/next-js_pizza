@@ -14,10 +14,10 @@ export type SearchStoreApi = ReturnType<typeof createSearchStore>;
 export const CategoryStoreContext = createContext<CategoryStoreApi | undefined>(
   undefined,
 );
+
 export const SearchStoreContext = createContext<SearchStoreApi | undefined>(
   undefined,
 );
-
 export interface StoreProviderProps {
   children: ReactNode;
 }

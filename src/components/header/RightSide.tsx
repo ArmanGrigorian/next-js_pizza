@@ -3,7 +3,7 @@ import { ArrowRight, ShoppingCart, User } from "lucide-react";
 
 const RightSide: React.FC = () => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 w-full justify-between lg:w-fit">
       <Button variant="outline" className="flex items-center gap-1">
         <User size={16} />
         <span>Login</span>

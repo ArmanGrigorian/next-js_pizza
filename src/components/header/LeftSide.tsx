@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const LeftSide: React.FC = () => {
   return (
-    <Link href="/" className="flex items-center gap-4">
+    <Link href="/" className="flex w-full items-center gap-4 lg:w-fit">
       <Image
         src="/logo.png"
         width={35}
@@ -14,8 +14,10 @@ const LeftSide: React.FC = () => {
       />
 
       <hgroup>
-        <h1 className="text-2xl font-black uppercase">Next Pizza</h1>
-        <p className="text-sm leading-3 text-gray-400">
+        <h1 className="text-custom-black-200 text-xl font-black uppercase lg:text-2xl">
+          Next Pizza
+        </h1>
+        <p className="text-custom-grey-400 text-sm/2 lg:text-base/3">
           It couldn&apos;t be tastier
         </p>
       </hgroup>

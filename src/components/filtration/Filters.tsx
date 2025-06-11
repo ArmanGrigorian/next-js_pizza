@@ -1,6 +1,6 @@
 "use client";
 
-import { FiltersCheckboxGroup, Input, RangeSlider, Title } from "@/components";
+import { FiltersCheckboxGroup, Input, RangeSlider } from "@/components";
 import { useFilters, useIngredients, useQueryFilters } from "@/hooks";
 
 import { useDebounce } from "react-use";
@@ -28,12 +28,10 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
 
   return (
     <form className={className}>
-      <Title text="Filters" size="sm" className="mb-5 font-bold" />
-
       <FiltersCheckboxGroup
         title="Type of dough"
         name="doughs"
-        className="flex flex-col gap-4 border-b border-b-neutral-100 pb-7"
+        className="flex flex-col gap-4 border-b border-b-neutral-100 pt-2 pb-6"
         onClickCheckbox={setSelectedDoughs}
         selected={selectedDoughs}
         items={[
@@ -45,7 +43,7 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
       <FiltersCheckboxGroup
         title="Sizes"
         name="sizes"
-        className="mt-5 border-b border-b-neutral-100 pt-6 pb-7"
+        className="mt-4 border-b border-b-neutral-100 pt-2 pb-6"
         onClickCheckbox={setSelectedSizes}
         selected={selectedSizes}
         items={[
@@ -55,9 +53,9 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
         ]}
       />
 
-      <fieldset className="mt-5 border-b border-b-neutral-100 pt-6 pb-7">
+      <fieldset className="mt-4 border-b border-b-neutral-100 pt-2 pb-6">
         <legend className="mb-3 block font-bold">Price from and to:</legend>
-        <div className="mb-5 flex items-center gap-3">
+        <div className="mb-7 flex items-center gap-3">
           <Input
             type="number"
             placeholder="0"
@@ -92,7 +90,7 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
       <FiltersCheckboxGroup
         title="Ingredients"
         name="ingredients"
-        className="mt-5 border-b border-b-neutral-100 pt-6 pb-7"
+        className="mt-4 border-b border-b-neutral-100 pt-2 pb-6"
         limit={6}
         defaultItems={ingredientsList.slice(0, 6)}
         items={ingredientsList}

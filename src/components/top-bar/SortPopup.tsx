@@ -33,18 +33,16 @@ const SortPopup: React.FC<SortPopupProps> = ({ className }) => {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <div
-          className={cn(
-            "flex h-[52px] cursor-pointer items-center gap-1 rounded-2xl bg-gray-50 px-5",
-            className,
-          )}
-        >
-          <ArrowUpDown className="h-4 w-4" />
-          <b>Sorting:</b>
+      <PopoverTrigger
+        className={cn(
+          "flex h-12 lg:h-13 cursor-pointer items-center gap-1 rounded-2xl bg-gray-50 px-5",
+          className,
+        )}
+      >
+        <ArrowUpDown className="h-4 w-4" />
+        <b className="text-sm lg:text-base  text-custom-black-200">Sorting:</b>
 
-          <b className="text-primary">{activeSort}</b>
-        </div>
+        <b className="text-primary text-sm lg:text-base">{activeSort}</b>
       </PopoverTrigger>
 
       <PopoverContent className="min-w-max">

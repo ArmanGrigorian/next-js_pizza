@@ -1,8 +1,7 @@
-export { ZustandStoreProvider } from "./providers/ZustandStoreProvider";
-export { default as Container } from "./ui/Container";
 export { default as FilterCheckbox } from "./filtration/FilterCheckbox";
 export { default as Filters } from "./filtration/Filters";
 export { default as FiltersCheckboxGroup } from "./filtration/FiltersCheckboxGroup";
+export { default as FiltersContainer } from "./filtration/FiltersContainer";
 export { default as IngredientsSkeleton } from "./filtration/IngredientsSkeleton";
 export { default as RangeSlider } from "./filtration/RangeSlider";
 export { default as Header } from "./header/Header";
@@ -11,14 +10,15 @@ export { default as RightSide } from "./header/RightSide";
 export { default as SearchInput } from "./header/SearchInput";
 export { default as SearchList } from "./header/SearchList";
 export { default as ProductCard } from "./products/ProductCard";
-// export { default as ProductsGroupList } from "./shared/products/ProductsGroupList";
+export { default as ProductsGroupList } from "./products/ProductsGroupList";
 export { default as ProductsMenu } from "./products/ProductsMenu";
-export { default as Title } from "./ui/Title";
+export { ZustandStoreProvider } from "./providers/ZustandStoreProvider";
 export { default as Categories } from "./top-bar/Categories";
 export { default as SortPopup } from "./top-bar/SortPopup";
 export { default as TopBar } from "./top-bar/TopBar";
 export { Button, buttonVariants } from "./ui/Button";
 export { Checkbox } from "./ui/Checkbox";
+export { default as Container } from "./ui/Container";
 export {
   Dialog,
   DialogClose,
@@ -63,5 +63,16 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./ui/Select";
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 export { Skeleton } from "./ui/Skeleton";
 export { Slider } from "./ui/Slider";
+export { default as Title } from "./ui/Title";

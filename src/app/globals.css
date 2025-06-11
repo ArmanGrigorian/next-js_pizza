@@ -20,6 +20,7 @@
   --color-custom-grey-300: #b1b1b1;
   --color-custom-grey-400: #7b7b7b;
   --color-custom-black-100: #202020;
+  --color-custom-black-200: #282828;
 
   /* built-in colors */
   --color-background: var(--background);

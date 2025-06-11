@@ -1,17 +1,20 @@
+import { categoriesList } from "@/lib/constants";
+import type { Category } from "@/lib/types";
 import { createStore } from "zustand";
 
 export type CategoryStoreStateType = {
-  activeCategory: number;
+  activeCategory: string;
 };
 
 export type CategoryStoreActionType = {
-  setActiveCategory: (activeCategory: number) => void;
+  setActiveCategory: (activeCategory: Category) => void;
 };
 
-export type CategoryStoreType = CategoryStoreStateType & CategoryStoreActionType;
+export type CategoryStoreType = CategoryStoreStateType &
+  CategoryStoreActionType;
 
 export const defaultInitState: CategoryStoreStateType = {
-  activeCategory: 0,
+  activeCategory: categoriesList[0],
 };
 
 export const createCategoryStore = (
@@ -19,6 +22,6 @@ export const createCategoryStore = (
 ) => {
   return createStore<CategoryStoreType>()((set) => ({
     ...initState,
-    setActiveCategory: (activeCategory: number) => set({ activeCategory }),
+    setActiveCategory: (activeCategory: Category) => set({ activeCategory }),
   }));
 };

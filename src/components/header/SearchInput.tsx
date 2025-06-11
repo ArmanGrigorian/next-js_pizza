@@ -45,7 +45,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ className }) => {
 
       <search
         className={cn(
-          "relative z-30 flex h-11 flex-1 justify-between rounded-2xl",
+          "relative z-30 order-1 flex min-h-11 w-full flex-1 justify-between rounded-2xl lg:order-0",
           className,
         )}
       >

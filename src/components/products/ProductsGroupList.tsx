@@ -1,58 +1,51 @@
-// "use client";
+"use client";
 
-// import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
-// import { useEffect, useRef } from "react";
-// import { useIntersection } from "react-use";
-// import Title from "../Title";
-// import ProductCard from "./ProductCard";
-// import { useCategoryStore } from "@/components/providers/ZustandStoreProvider";
+import { ProductCard } from "@/components";
+import { Ingredient, Product, ProductItem } from "@prisma/client";
 
-// interface Props {
-//   title: string;
-//   items: ProductWithRelations[];
-//   categoryId: number;
-//   className?: string;
-//   listClassName?: string;
-// }
+export type ProductWithRelations = Product & {
+  items?: ProductItem[];
+  ingredients: Ingredient[];
+};
+interface Props {
+  title: string;
+  categoryId: number;
+  className?: string;
+  listClassName?: string;
+  items: ProductWithRelations[];
+}
 
-// const ProductsGroupList: React.FC<Props> = ({
-//   title,
-//   items,
-//   listClassName,
-//   categoryId,
-//   className,
-// }) => {
-//   const {activeId, setActiveId} = useCategoryStore();
-//   const intersectionRef = useRef(null);
-//   const intersection = useIntersection(intersectionRef, {
-//     threshold: 0.4,
-//   });
+const ProductsGroupList: React.FC<Props> = ({
+  title,
+  items,
+  listClassName,
+  className,
+}) => {
+  return (
+    <section className={className} id={title}>
+      <h3 className="mb-5 text-3xl text-custom-black-200 font-bold lg:text-4xl">{title}</h3>
 
-//   useEffect(() => {
-//     if (intersection?.isIntersecting) {
-//       setActiveId(categoryId);
-//     }
-//   }, [categoryId, intersection?.isIntersecting, title]);
+      <div
+        className={cn(
+          "grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-5 lg:gap-10",
+          listClassName,
+        )}
+      >
+        {items.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            imageUrl={product.imageUrl}
+            // price={product.items[0].price}
+            ingredients={product.ingredients}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
 
-//   return (
-//     <section className={className} id={title} ref={intersectionRef}>
-//       <Title text={title} size="lg" className="mb-5 font-extrabold" />
-
-//       <div className={cn("grid grid-cols-3 gap-[50px]", listClassName)}>
-//         {items.map((product) => (
-//           <ProductCard
-//             key={product.id}
-//             id={product.id}
-//             name={product.name}
-//             imageUrl={product.imageUrl}
-//             price={product.items[0].price}
-//             ingredients={product.ingredients}
-//           />
-//         ))}
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default ProductsGroupList;
+export default ProductsGroupList;
