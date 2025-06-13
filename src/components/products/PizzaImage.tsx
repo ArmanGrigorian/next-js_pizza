@@ -1,13 +1,21 @@
-import { cn } from "@/lib/utils";
+import { cn, getLowResSrc } from "@/lib/utils";
 import Image from "next/image";
 
-interface Props {
-  className?: string;
-  imageUrl: string;
+interface PizzaImageProps {
+  src: string;
   size: 20 | 30 | 40;
+  alt: string;
+  className?: string;
 }
 
-export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
+export const PizzaImage: React.FC<PizzaImageProps> = ({
+  src,
+  size,
+  alt = "Logo",
+  className,
+}) => {
+  const lowResSrc = getLowResSrc(src);
+
   return (
     <div
       className={cn(
@@ -16,8 +24,8 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
       )}
     >
       <Image
-        src={imageUrl}
-        alt="Logo"
+        src={src}
+        alt={alt}
         width={500}
         height={500}
         className={cn(
@@ -28,10 +36,13 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
             "h-[500px] w-[500px]": size === 40,
           },
         )}
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL={lowResSrc}
       />
 
       <div className="absolute top-1/2 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
-      <div className="absolute top-1/2 left-1/2 h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dotted border-gray-100" />
+      <div className="absolute top-1/2 left-1/2 h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-100" />
     </div>
   );
 };

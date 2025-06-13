@@ -10,7 +10,6 @@ interface FiltersProps {
 }
 
 const Filters: React.FC<FiltersProps> = ({ className }) => {
-  const { ingredientsList, isLoading } = useIngredients();
   const {
     selectedIngredients,
     selectedDoughs,
@@ -23,6 +22,7 @@ const Filters: React.FC<FiltersProps> = ({ className }) => {
     params,
   } = useFilters();
   const { queryFilters } = useQueryFilters({ params });
+  const { ingredientsList, isLoading } = useIngredients();
 
   useDebounce(queryFilters, 280, [params]);
 

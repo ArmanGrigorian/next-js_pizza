@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import React, { useEffect, useState } from "react";
 
-type SliderProps = {
+interface RangeSliderProps {
   className?: string;
   min: number;
   max: number;
@@ -12,20 +12,11 @@ type SliderProps = {
   formatLabel?: (value: number) => string;
   value?: [number, number] | readonly [number, number];
   onValueChange?: (values: [number, number]) => void;
-};
+}
 
-const RangeSlider = React.forwardRef(
+const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
   (
-    {
-      className,
-      min,
-      max,
-      step,
-      formatLabel,
-      value,
-      onValueChange,
-      ...props
-    }: SliderProps,
+    { className, min, max, step, formatLabel, value, onValueChange, ...props },
     ref,
   ) => {
     const initialValue = Array.isArray(value) ? value : [min, max];

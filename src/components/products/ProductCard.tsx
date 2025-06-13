@@ -1,27 +1,35 @@
 import Link from "next/link";
 
 import { Button } from "@/components";
+import { getLowResSrc } from "@/lib/utils";
 import { Ingredient } from "@prisma/client";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
-interface Props {
+interface ProductCardProps {
   id: number;
   name: string;
-  // price: number;
+  price: number;
   imageUrl: string;
   ingredients: Ingredient[];
   className?: string;
 }
 
-const ProductCard: React.FC<Props> = ({
+const ProductCard: React.FC<ProductCardProps> = ({
   id,
   name,
-  // price,
+  price,
   imageUrl,
   ingredients,
   className,
 }) => {
+  const actualPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(price / 4.75);
+
+  const lowResSrc = getLowResSrc(imageUrl);
+
   return (
     <article>
       <Link href={`/product/${id}`} className={className}>
@@ -32,6 +40,9 @@ const ProductCard: React.FC<Props> = ({
             width={215}
             height={215}
             className="size-44 lg:size-52"
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL={lowResSrc}
           />
         </div>
 
@@ -44,9 +55,9 @@ const ProductCard: React.FC<Props> = ({
         </p>
 
         <div className="mt-4 flex items-center justify-between">
-          {/* <span className="text-[20px]">
-            от <b>{price} ₽</b>
-          </span> */}
+          <span className="text-[20px]">
+            from <b>{actualPrice}</b>
+          </span>
 
           <Button
             variant="secondary"

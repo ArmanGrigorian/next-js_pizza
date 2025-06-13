@@ -3,29 +3,47 @@
 import { cn } from "@/lib/utils";
 
 import { ProductCard } from "@/components";
-import { Ingredient, Product, ProductItem } from "@prisma/client";
+import type { ProductWithRelations } from "@/lib/types";
+import type { Category } from "@prisma/client";
+import { RefObject, useEffect, useRef } from "react";
+import { useIntersection } from "react-use";
+import { useCategoryStore } from "../providers/ZustandStoreProvider";
 
-export type ProductWithRelations = Product & {
-  items?: ProductItem[];
-  ingredients: Ingredient[];
-};
-interface Props {
-  title: string;
-  categoryId: number;
+interface ProductsGroupListProps {
+  name: string;
+  category: Category;
+  productItems: ProductWithRelations[];
   className?: string;
   listClassName?: string;
-  items: ProductWithRelations[];
 }
 
-const ProductsGroupList: React.FC<Props> = ({
-  title,
-  items,
-  listClassName,
+const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
+  name,
+  category,
+  productItems,
   className,
+  listClassName,
 }) => {
+  const { setActiveCategory } = useCategoryStore();
+  const intersectionRef = useRef<HTMLDivElement>(
+    null,
+  ) as RefObject<HTMLDivElement>;
+
+  const intersection = useIntersection(intersectionRef, {
+    threshold: 0.4,
+  });
+
+  useEffect(() => {
+    if (intersection?.isIntersecting) {
+      setActiveCategory(category);
+    }
+  }, [category, intersection?.isIntersecting, name]);
+
   return (
-    <section className={className} id={title}>
-      <h3 className="mb-5 text-3xl text-custom-black-200 font-bold lg:text-4xl">{title}</h3>
+    <section className={className} id={name} ref={intersectionRef}>
+      <h3 className="text-custom-black-200 mb-5 text-3xl font-bold lg:text-4xl">
+        {name}
+      </h3>
 
       <div
         className={cn(
@@ -33,13 +51,13 @@ const ProductsGroupList: React.FC<Props> = ({
           listClassName,
         )}
       >
-        {items.map((product) => (
+        {productItems.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id}
             name={product.name}
             imageUrl={product.imageUrl}
-            // price={product.items[0].price}
+            price={product.productItems[0].price}
             ingredients={product.ingredients}
           />
         ))}

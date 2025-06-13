@@ -1,9 +1,8 @@
-import { categoriesList } from "@/lib/constants";
-import type { Category } from "@/lib/types";
+import { Category } from "@prisma/client";
 import { createStore } from "zustand";
 
 export type CategoryStoreStateType = {
-  activeCategory: string;
+  activeCategory: Category;
 };
 
 export type CategoryStoreActionType = {
@@ -14,7 +13,12 @@ export type CategoryStoreType = CategoryStoreStateType &
   CategoryStoreActionType;
 
 export const defaultInitState: CategoryStoreStateType = {
-  activeCategory: categoriesList[0],
+  activeCategory: {
+    id: 1,
+    name: "Pizzas",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
 };
 
 export const createCategoryStore = (

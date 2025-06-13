@@ -1,4 +1,4 @@
-import { ProductsGroupList } from "@/components";
+import { Container, ProductsGroupList } from "@/components";
 import { prisma } from "@/prisma/prisma-client";
 
 const ProductsMenu: React.FC = async () => {
@@ -12,23 +12,21 @@ const ProductsMenu: React.FC = async () => {
       },
     },
   });
-  
+
   return (
-    <div className="flex-1">
-      <div className="flex flex-col gap-16">
-        {categories.map(
-          (category) =>
-            category.products.length > 0 && (
-              <ProductsGroupList
-                key={category.id}
-                title={category.name}
-                categoryId={category.id}
-                items={category.products}
-              />
-            ),
-        )}
-      </div>
-    </div>
+    <Container className="relative mt-10 flex w-full flex-col gap-8 pb-14 lg:gap-16">
+      {categories.map(
+        (category) =>
+          category.products.length > 0 && (
+            <ProductsGroupList
+              key={category.id}
+              name={category.name}
+              category={category}
+              productItems={category.products}
+            />
+          ),
+      )}
+    </Container>
   );
 };
 

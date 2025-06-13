@@ -1,20 +1,17 @@
 "use client";
 
 import { useCategoryStore } from "@/components/providers/ZustandStoreProvider";
-import { categoriesList } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { Category } from "@prisma/client";
 
 import Link from "next/link";
 
 interface CategoriesProps {
-  // items: Category[];
+  items: Category[];
   className?: string;
 }
 
-const Categories: React.FC<CategoriesProps> = ({
-  // items,
-  className,
-}) => {
+const Categories: React.FC<CategoriesProps> = ({ items, className }) => {
   const { activeCategory, setActiveCategory } = useCategoryStore();
 
   return (
@@ -24,22 +21,21 @@ const Categories: React.FC<CategoriesProps> = ({
         className,
       )}
     >
-      {categoriesList.map((category) => {
-        const isActive =
-          category.toLowerCase() === activeCategory.toLowerCase();
+      {items.map((category) => {
+        const isActive = category.name === activeCategory.name;
 
         return (
           <li
             onClick={() => setActiveCategory(category)}
-            key={category}
+            key={category.id}
             className={cn(
-              "flex h-10 flex-1 cursor-pointer items-center rounded-2xl px-4 justify-center text-sm font-bold lg:h-11 lg:text-base",
+              "flex h-10 flex-1 cursor-pointer items-center justify-center rounded-2xl px-4 text-sm font-bold lg:h-11 lg:text-base",
               isActive
                 ? "text-primary bg-white shadow-md shadow-gray-200"
                 : "text-custom-black-200",
             )}
           >
-            <Link href={`/#${category}`}>{category}</Link>
+            <Link href={`/#${category.id}`}>{category.name}</Link>
           </li>
         );
       })}

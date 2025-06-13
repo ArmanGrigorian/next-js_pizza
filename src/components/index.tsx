@@ -43,6 +43,7 @@ export {
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/Drawer";
+export { default as GroupVariants } from "./ui/GroupVariants";
 export { Input } from "./ui/Input";
 export {
   Popover,
@@ -75,4 +76,3 @@ export {
 } from "./ui/sheet";
 export { Skeleton } from "./ui/Skeleton";
 export { Slider } from "./ui/Slider";
-export { default as Title } from "./ui/Title";

@@ -10,7 +10,10 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Next Pizza | Home",
+  title: {
+    template: "Next Pizza | %s",
+    default: "Next Pizza",
+  },
   description: "The best pizza in the world",
 };
 

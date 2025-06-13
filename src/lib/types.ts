@@ -1,3 +1,15 @@
-import { categoriesList } from "./constants";
+import type {
+  Ingredient,
+  Product,
+  ProductItem,
+} from "@prisma/client";
 
-export type Category = (typeof categoriesList)[number];
+export type ProductWithRelations = Product & {
+  productItems: ProductItem[];
+  ingredients: Ingredient[];
+};
+
+
+
+
+

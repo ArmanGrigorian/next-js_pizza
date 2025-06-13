@@ -1,15 +1,13 @@
 import { cn } from "@/lib/utils";
 
-interface Props {
+interface ContainerProps {
   className?: string;
+  children: React.ReactNode;
 }
 
-const Container: React.FC<React.PropsWithChildren<Props>> = ({
-  className,
-  children,
-}) => {
+const Container: React.FC<ContainerProps> = ({ className, children }) => {
   return (
-    <div className={cn("max-w-full-hd mx-auto px-4 lg:px-8", className)}>
+    <div className={cn("max-w-full-hd mx-auto w-full px-4 lg:px-8", className)}>
       {children}
     </div>
   );

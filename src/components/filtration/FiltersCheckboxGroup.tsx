@@ -1,15 +1,14 @@
 "use client";
 
 import { FilterCheckbox, IngredientsSkeleton, Input } from "@/components";
+
 import { useState } from "react";
 import type { FilterCheckboxProps } from "./FilterCheckbox";
 
-type Item = FilterCheckboxProps;
-
 interface FiltersCheckboxGroupProps {
   title: string;
-  items: Item[];
-  defaultItems?: Item[];
+  items: FilterCheckboxProps[];
+  defaultItems?: FilterCheckboxProps[];
   limit?: number;
   isLoading?: boolean;
   searchInputPlaceholder?: string;
@@ -63,7 +62,7 @@ const FiltersCheckboxGroup: React.FC<FiltersCheckboxGroupProps> = ({
         </div>
       )}
 
-      <div className="scrollbar flex max-h-40 lg:max-h-96 flex-col gap-4 overflow-y-auto px-2">
+      <div className="scrollbar flex max-h-40 flex-col gap-4 overflow-y-auto px-2 lg:max-h-96">
         {list.map((item, index) => (
           <FilterCheckbox
             key={item.value + index}

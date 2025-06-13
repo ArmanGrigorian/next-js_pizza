@@ -1,24 +1,29 @@
-"use client";
-
 import {
   Categories,
   Container,
   FiltersContainer,
   SortPopup,
 } from "@/components";
-const TopBar: React.FC = () => {
+import { prisma } from "@/prisma/prisma-client";
+
+const TopBar: React.FC = async () => {
+  const categories = await prisma.category.findMany();
+
   return (
     <>
-      <Container className="flex items-center justify-between">
-        <h2 className="mt-5 text-2xl text-custom-black-200 font-extrabold lg:text-3xl">All pizzas</h2>
-      </Container>
-      <Container className="sticky top-0 z-10 flex flex-col items-end justify-between gap-2 bg-white/80 py-5 shadow-lg shadow-black/5 backdrop-blur-xs lg:flex-row lg:items-center">
-        <Categories />
-        <div className="flex w-full justify-between lg:w-fit">
-          <SortPopup />
-          <FiltersContainer />
-        </div>
-      </Container>
+      <h2 className="max-w-full-hd text-custom-black-200 mx-auto mt-5 w-full px-4 text-2xl font-extrabold lg:px-8 lg:text-3xl">
+        All pizzas
+      </h2>
+
+      <div className="sticky top-0 z-10 bg-white/80 shadow-lg shadow-black/5 backdrop-blur-xs">
+        <Container className="flex flex-col items-end justify-between gap-2 py-5 lg:flex-row lg:items-center">
+          <Categories items={categories} />
+          <div className="flex w-full justify-between lg:w-fit">
+            <SortPopup />
+            <FiltersContainer />
+          </div>
+        </Container>
+      </div>
     </>
   );
 };
