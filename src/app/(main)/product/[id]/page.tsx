@@ -1,5 +1,4 @@
-import { GroupVariants } from "@/components";
-import { PizzaImage } from "@/components/products/PizzaImage";
+import { GroupVariants, PizzaImage } from "@/components";
 import { prisma } from "@/prisma/prisma-client";
 import { notFound } from "next/navigation";
 
@@ -22,6 +21,10 @@ export async function generateMetadata({ params }: ProductPageProps) {
     where: {
       id: Number(id),
     },
+    include: {
+      ingredients: true,
+      productItems: true,
+    },
   });
 
   if (!product) return notFound();
@@ -37,6 +40,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await prisma.product.findFirst({
     where: {
       id: Number(id),
+    },
+    include: {
+      ingredients: true,
+      productItems: true,
     },
   });
 

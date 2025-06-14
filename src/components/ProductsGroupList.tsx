@@ -3,28 +3,23 @@
 import { cn } from "@/lib/utils";
 
 import { ProductCard } from "@/components";
-import type { ProductWithRelations } from "@/lib/types";
-import type { Category } from "@prisma/client";
+import type { CategoryWithRelations } from "@/lib/types";
 import { RefObject, useEffect, useRef } from "react";
 import { useIntersection } from "react-use";
-import { useCategoryStore } from "../providers/ZustandStoreProvider";
+import { useCategoryStore } from "./providers/ZustandStoreProvider";
 
 interface ProductsGroupListProps {
-  name: string;
-  category: Category;
-  productItems: ProductWithRelations[];
+  category: CategoryWithRelations;
   className?: string;
   listClassName?: string;
 }
 
 const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
-  name,
   category,
-  productItems,
   className,
   listClassName,
 }) => {
-  const { setActiveCategory } = useCategoryStore();
+  const { activeCategory, setActiveCategory } = useCategoryStore();
   const intersectionRef = useRef<HTMLDivElement>(
     null,
   ) as RefObject<HTMLDivElement>;
@@ -34,15 +29,16 @@ const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
   });
 
   useEffect(() => {
-    if (intersection?.isIntersecting) {
+    if (intersection?.isIntersecting && activeCategory?.id !== category.id) {
       setActiveCategory(category);
     }
-  }, [category, setActiveCategory, intersection?.isIntersecting, name]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [intersection?.isIntersecting]);
 
   return (
-    <section className={className} id={name} ref={intersectionRef}>
+    <section className={className} id={category.name} ref={intersectionRef}>
       <h3 className="text-custom-black-200 mb-5 text-3xl font-bold lg:text-4xl">
-        {name}
+        {category.name}
       </h3>
 
       <div
@@ -51,15 +47,8 @@ const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
           listClassName,
         )}
       >
-        {productItems.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            imageUrl={product.imageUrl}
-            price={product.productItems[0].price}
-            ingredients={product.ingredients}
-          />
+        {category.products.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>

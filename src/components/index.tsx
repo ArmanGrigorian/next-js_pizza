@@ -1,17 +1,21 @@
-export { default as FilterCheckbox } from "./filtration/FilterCheckbox";
-export { default as Filters } from "./filtration/Filters";
-export { default as FiltersCheckboxGroup } from "./filtration/FiltersCheckboxGroup";
-export { default as FiltersContainer } from "./filtration/FiltersContainer";
-export { default as IngredientsSkeleton } from "./filtration/IngredientsSkeleton";
-export { default as RangeSlider } from "./filtration/RangeSlider";
+export { default as ChoosePizzaForm } from "./ChoosePizzaForm";
+export { default as ChooseProductForm } from "./ChooseProductForm";
+export { default as FilterCheckbox } from "./FilterCheckbox";
+export { default as Filters } from "./Filters";
+export { default as FiltersCheckboxGroup } from "./FiltersCheckboxGroup";
+export { default as FiltersContainer } from "./FiltersContainer";
+export { default as IngredientsSkeleton } from "./IngredientsSkeleton";
+export { default as RangeSlider } from "./RangeSlider";
 export { default as Header } from "./header/Header";
 export { default as LeftSide } from "./header/LeftSide";
 export { default as RightSide } from "./header/RightSide";
 export { default as SearchInput } from "./header/SearchInput";
 export { default as SearchList } from "./header/SearchList";
-export { default as ProductCard } from "./products/ProductCard";
-export { default as ProductsGroupList } from "./products/ProductsGroupList";
-export { default as ProductsMenu } from "./products/ProductsMenu";
+export { default as ChooseProductModal } from "./modals/ChooseProductModal";
+export { default as PizzaImage } from "./PizzaImage";
+export { default as ProductCard } from "./ProductCard";
+export { default as ProductsGroupList } from "./ProductsGroupList";
+export { default as ProductsMenu } from "./ProductsMenu";
 export { ZustandStoreProvider } from "./providers/ZustandStoreProvider";
 export { default as Categories } from "./top-bar/Categories";
 export { default as SortPopup } from "./top-bar/SortPopup";
@@ -43,7 +47,7 @@ export {
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/Drawer";
-export { default as GroupVariants } from "./ui/GroupVariants";
+export { default as GroupVariants } from "./GroupVariants";
 export { Input } from "./ui/Input";
 export {
   Popover,
@@ -76,3 +80,10 @@ export {
 } from "./ui/sheet";
 export { Skeleton } from "./ui/Skeleton";
 export { Slider } from "./ui/Slider";
+export { Toaster } from "./ui/Sonner";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/Tooltip";

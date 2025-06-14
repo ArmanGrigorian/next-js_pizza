@@ -20,9 +20,7 @@ const ProductsMenu: React.FC = async () => {
           category.products.length > 0 && (
             <ProductsGroupList
               key={category.id}
-              name={category.name}
               category={category}
-              productItems={category.products}
             />
           ),
       )}

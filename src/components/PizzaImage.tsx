@@ -8,7 +8,7 @@ interface PizzaImageProps {
   className?: string;
 }
 
-export const PizzaImage: React.FC<PizzaImageProps> = ({
+const PizzaImage: React.FC<PizzaImageProps> = ({
   src,
   size,
   alt = "Logo",
@@ -26,14 +26,14 @@ export const PizzaImage: React.FC<PizzaImageProps> = ({
       <Image
         src={src}
         alt={alt}
-        width={500}
-        height={500}
+        width={400}
+        height={400}
         className={cn(
           "relative top-2 left-2 z-10 transition-all duration-300",
           {
-            "h-[300px] w-[300px]": size === 20,
-            "h-[400px] w-[400px]": size === 30,
-            "h-[500px] w-[500px]": size === 40,
+            "h-[240px] w-[240px]": size === 20,
+            "h-[320px] w-[320px]": size === 30,
+            "h-[400px] w-[400px]": size === 40,
           },
         )}
         loading="lazy"
@@ -41,8 +41,10 @@ export const PizzaImage: React.FC<PizzaImageProps> = ({
         blurDataURL={lowResSrc}
       />
 
-      <div className="absolute top-1/2 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
-      <div className="absolute top-1/2 left-1/2 h-[370px] w-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-100" />
+      <div className="absolute top-1/2 left-1/2 size-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-100" />
+      <div className="absolute top-1/2 left-1/2 size-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
     </div>
   );
 };
+
+export default PizzaImage;

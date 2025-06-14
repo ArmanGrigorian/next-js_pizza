@@ -1,42 +1,35 @@
 import Link from "next/link";
 
 import { Button } from "@/components";
+import type { ProductWithRelations } from "@/lib/types";
 import { getLowResSrc } from "@/lib/utils";
-import { Ingredient } from "@prisma/client";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
 interface ProductCardProps {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  ingredients: Ingredient[];
+  product: ProductWithRelations;
   className?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  id,
-  name,
-  price,
-  imageUrl,
-  ingredients,
-  className,
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
   const actualPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(price / 4.75);
+  }).format(product.productItems[0].price / 4.75);
 
-  const lowResSrc = getLowResSrc(imageUrl);
+  const lowResSrc = getLowResSrc(product.imageUrl);
 
   return (
     <article>
-      <Link href={`/product/${id}`} className={className}>
+      <Link
+        href={`/product/${product.id}`}
+        className={className}
+        scroll={false}
+      >
         <div className="flex h-53 justify-center rounded-lg bg-gray-50 p-6 lg:h-64">
           <Image
-            src={imageUrl}
-            alt={name}
+            src={product.imageUrl}
+            alt={product.name}
             width={215}
             height={215}
             className="size-44 lg:size-52"
@@ -47,11 +40,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         <h4 className="text-custom-black-200 mt-3 mb-0.5 text-lg font-bold lg:text-xl">
-          {name}
+          {product.name}
         </h4>
 
         <p className="text-custom-grey-400 text-sm lg:text-base">
-          {ingredients.map((ingredient) => ingredient.name).join(", ")}
+          {product.ingredients.map((ingredient) => ingredient.name).join(", ")}
         </p>
 
         <div className="mt-4 flex items-center justify-between">

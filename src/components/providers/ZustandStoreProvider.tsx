@@ -1,15 +1,18 @@
 "use client";
 
+import { type CartStoreType, createCartStore } from "@/store/cartStore";
 import {
   type CategoryStoreType,
   createCategoryStore,
 } from "@/store/categoryStore";
+
 import { type SearchStoreType, createSearchStore } from "@/store/searchStore";
 import { type ReactNode, createContext, useContext, useRef } from "react";
 import { useStore } from "zustand";
 
 export type CategoryStoreApi = ReturnType<typeof createCategoryStore>;
 export type SearchStoreApi = ReturnType<typeof createSearchStore>;
+export type CartStoreApi = ReturnType<typeof createCartStore>;
 
 export const CategoryStoreContext = createContext<CategoryStoreApi | undefined>(
   undefined,
@@ -18,6 +21,11 @@ export const CategoryStoreContext = createContext<CategoryStoreApi | undefined>(
 export const SearchStoreContext = createContext<SearchStoreApi | undefined>(
   undefined,
 );
+
+export const CartStoreContext = createContext<CartStoreApi | undefined>(
+  undefined,
+);
+
 export interface StoreProviderProps {
   children: ReactNode;
 }
@@ -27,6 +35,7 @@ export const ZustandStoreProvider: React.FC<StoreProviderProps> = ({
 }: StoreProviderProps) => {
   const categoryStoreRef = useRef<CategoryStoreApi | null>(null);
   const searchStoreRef = useRef<SearchStoreApi | null>(null);
+  const cartStoreRef = useRef<CartStoreApi | null>(null);
 
   if (categoryStoreRef.current === null) {
     categoryStoreRef.current = createCategoryStore();
@@ -36,10 +45,16 @@ export const ZustandStoreProvider: React.FC<StoreProviderProps> = ({
     searchStoreRef.current = createSearchStore();
   }
 
+  if (cartStoreRef.current === null) {
+    cartStoreRef.current = createCartStore();
+  }
+
   return (
     <CategoryStoreContext.Provider value={categoryStoreRef.current}>
       <SearchStoreContext.Provider value={searchStoreRef.current}>
-        {children}
+        <CartStoreContext.Provider value={cartStoreRef.current}>
+          {children}
+        </CartStoreContext.Provider>
       </SearchStoreContext.Provider>
     </CategoryStoreContext.Provider>
   );
@@ -69,4 +84,14 @@ export const useSearchStore = (
   }
 
   return useStore(searchStoreContext, selector);
+};
+
+export const useCartStore = (selector = (store: CartStoreType) => store) => {
+  const cartStoreContext = useContext(CartStoreContext);
+
+  if (!cartStoreContext) {
+    throw new Error(`useCartStore must be used within a CartStoreProvider`);
+  }
+
+  return useStore(cartStoreContext, selector);
 };
