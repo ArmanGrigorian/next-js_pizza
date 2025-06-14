@@ -1,4 +1,4 @@
-import { Header, ZustandStoreProvider } from "@/components";
+import { ZustandStoreProvider } from "@/components";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     default: "Next Pizza",
   },
   description: "The best pizza in the world",
+  manifest: "/src/app/manifest.ts",
 };
 
 export default function RootLayout({
@@ -25,10 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-pt-30 scroll-smooth">
       <body className={nunito.variable}>
-        <ZustandStoreProvider>
-          <Header />
-          {children}
-        </ZustandStoreProvider>
+        <ZustandStoreProvider>{children}</ZustandStoreProvider>
       </body>
     </html>
   );

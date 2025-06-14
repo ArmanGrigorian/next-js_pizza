@@ -5,11 +5,11 @@ const LeftSide: React.FC = () => {
   return (
     <Link href="/" className="flex w-full items-center gap-4 lg:w-fit">
       <Image
-        src="/logo.png"
+        src="/favicon/favicon.svg"
         width={35}
         height={35}
         alt="Next Pizza Logo png"
-        className="h-auto w-[35px]"
+        className="h-auto w-9"
         priority
       />
 
