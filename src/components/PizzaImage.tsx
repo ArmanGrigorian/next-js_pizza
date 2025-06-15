@@ -3,7 +3,7 @@ import Image from "next/image";
 
 interface PizzaImageProps {
   src: string;
-  size: 20 | 30 | 40;
+  size: 10 | 20 | 30 | 40;
   alt: string;
   className?: string;
 }
@@ -19,7 +19,7 @@ const PizzaImage: React.FC<PizzaImageProps> = ({
   return (
     <div
       className={cn(
-        "relative flex w-full flex-1 items-center justify-center",
+        "t relative flex w-full flex-1 items-center justify-center max-lg:max-h-fit",
         className,
       )}
     >
@@ -29,11 +29,12 @@ const PizzaImage: React.FC<PizzaImageProps> = ({
         width={400}
         height={400}
         className={cn(
-          "relative top-2 left-2 z-10 transition-all duration-300",
+          "relative top-2.5 z-10 transition-all duration-300 max-lg:mt-1 lg:left-2.5",
           {
-            "h-[240px] w-[240px]": size === 20,
-            "h-[320px] w-[320px]": size === 30,
-            "h-[400px] w-[400px]": size === 40,
+            "size-20": size === 10,
+            "size-[240px]": size === 20,
+            "size-[320px]": size === 30,
+            "size-[400px]": size === 40,
           },
         )}
         loading="lazy"
@@ -41,8 +42,8 @@ const PizzaImage: React.FC<PizzaImageProps> = ({
         blurDataURL={lowResSrc}
       />
 
-      <div className="absolute top-1/2 left-1/2 size-[320px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-100" />
-      <div className="absolute top-1/2 left-1/2 size-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-200" />
+      <div className="absolute top-1/2 left-1/2 size-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dotted border-gray-200 max-lg:hidden" />
+      <div className="absolute top-1/2 left-1/2 size-[370px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-gray-300 max-lg:hidden" />
     </div>
   );
 };

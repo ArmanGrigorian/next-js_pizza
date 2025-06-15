@@ -1,7 +1,7 @@
 "use client";
 
 import { SearchList } from "@/components";
-import { useSearchStore } from "@/components/providers/ZustandStoreProvider";
+import { useSearchStore } from "@/components/providers/StoreProvider";
 import { cn } from "@/lib/utils";
 import { API } from "@/services/api-client";
 import { Search } from "lucide-react";

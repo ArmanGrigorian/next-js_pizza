@@ -9,6 +9,9 @@
   --max-width-full-hd: 1920px;
   --min-width-full-hd: 1920px;
 
+  /* breakpoints - media queries */
+  --breakpoint-xs: 375px;
+
   /* fonts */
   --font-nunito: var(--font-nunito);
 

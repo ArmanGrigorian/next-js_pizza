@@ -34,7 +34,7 @@ const GroupVariants: React.FC<GroupVariantsProps> = ({
           type="button"
           onClick={() => onClick?.(item.value)}
           className={cn(
-            "flex h-[30px] flex-1 cursor-pointer items-center justify-center rounded-3xl px-5 text-sm transition-all duration-400",
+            "flex h-7 flex-1 cursor-pointer items-center justify-center rounded-3xl px-4 text-sm transition-all duration-400",
             {
               "bg-white shadow": item.value === value,
               "pointer-events-none text-gray-500 opacity-50": item.disabled,

@@ -1,4 +1,4 @@
-import { ZustandStoreProvider } from "@/components";
+import { StoreProvider } from "@/components";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-pt-30 scroll-smooth">
       <body className={nunito.variable}>
-        <ZustandStoreProvider>{children}</ZustandStoreProvider>
+        <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import { ProductCard } from "@/components";
 import type { CategoryWithRelations } from "@/lib/types";
 import { RefObject, useEffect, useRef } from "react";
 import { useIntersection } from "react-use";
-import { useCategoryStore } from "./providers/ZustandStoreProvider";
+import { useCategoryStore } from "./providers/StoreProvider";
 
 interface ProductsGroupListProps {
   category: CategoryWithRelations;
@@ -37,9 +37,9 @@ const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
 
   return (
     <section className={className} id={category.name} ref={intersectionRef}>
-      <h3 className="text-custom-black-200 mb-5 text-3xl font-bold lg:text-4xl">
+      <h2 className="text-custom-black-200 mb-5 text-3xl font-bold lg:text-4xl">
         {category.name}
-      </h3>
+      </h2>
 
       <div
         className={cn(

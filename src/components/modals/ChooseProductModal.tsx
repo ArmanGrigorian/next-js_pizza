@@ -38,14 +38,9 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({
           }}
         >
           <DialogHeader>
-            <DialogTitle hidden>Choose a product</DialogTitle>
+            <DialogTitle hidden>{product.name}</DialogTitle>
           </DialogHeader>
-          <DialogContent
-            className={cn(
-              "min-h-[500px] min-w-[968px] overflow-hidden bg-white p-0",
-              className,
-            )}
-          >
+          <DialogContent className={cn("min-w-[960px] bg-white", className)}>
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DialogContent>
         </Dialog>
@@ -59,12 +54,7 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({
           <DrawerHeader>
             <DialogTitle hidden>Choose a product</DialogTitle>
           </DrawerHeader>
-          <DrawerContent
-            className={cn(
-              "min-h-[500px] overflow-hidden bg-white p-0",
-              className,
-            )}
-          >
+          <DrawerContent className={cn("bg-white", className)}>
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DrawerContent>
         </Drawer>

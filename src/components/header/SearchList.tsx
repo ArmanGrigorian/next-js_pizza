@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchStore } from "@/components/providers/ZustandStoreProvider";
+import { useSearchStore } from "@/components/providers/StoreProvider";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";

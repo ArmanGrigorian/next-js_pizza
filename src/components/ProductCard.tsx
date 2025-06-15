@@ -39,9 +39,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
           />
         </div>
 
-        <h4 className="text-custom-black-200 mt-3 mb-0.5 text-lg font-bold lg:text-xl">
+        <h3 className="text-custom-black-200 mt-3 mb-0.5 text-lg font-bold lg:text-xl">
           {product.name}
-        </h4>
+        </h3>
 
         <p className="text-custom-grey-400 text-sm lg:text-base">
           {product.ingredients.map((ingredient) => ingredient.name).join(", ")}

@@ -30,7 +30,7 @@ export interface StoreProviderProps {
   children: ReactNode;
 }
 
-export const ZustandStoreProvider: React.FC<StoreProviderProps> = ({
+export const StoreProvider: React.FC<StoreProviderProps> = ({
   children,
 }: StoreProviderProps) => {
   const categoryStoreRef = useRef<CategoryStoreApi | null>(null);

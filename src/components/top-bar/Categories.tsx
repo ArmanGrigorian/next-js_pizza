@@ -1,6 +1,6 @@
 "use client";
 
-import { useCategoryStore } from "@/components/providers/ZustandStoreProvider";
+import { useCategoryStore } from "@/components/providers/StoreProvider";
 import { cn } from "@/lib/utils";
 import { Category } from "@prisma/client";
 
