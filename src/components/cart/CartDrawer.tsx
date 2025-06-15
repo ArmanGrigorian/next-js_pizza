@@ -6,6 +6,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -17,12 +18,13 @@ import { cn } from "@/lib/utils";
 import { getCartItemDetails } from "@/lib/utils/getCartItemDetails";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
   const [redirecting, setRedirecting] = useState(false);
+  const router = useRouter();
 
   const onClickCountButton = (
     id: number,
@@ -35,9 +37,13 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
+      <SheetHeader>
+        <SheetTrigger asChild>{children}</SheetTrigger>
+        <SheetTitle hidden>Cart</SheetTitle>
+        <SheetDescription hidden>Cart</SheetDescription>
+      </SheetHeader>
 
-      <SheetContent className="flex flex-col justify-between bg-[#F4F1EE] pb-0">
+      <SheetContent className="flex flex-col justify-between bg-white pb-0">
         <div
           className={cn(
             "flex h-full flex-col",
@@ -57,21 +63,17 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
           {!totalAmount && (
             <div className="mx-auto flex w-72 flex-col items-center justify-center">
               <Image
-                src="/assets/images/empty-box.png"
+                src="/images/empty-box.png"
                 alt="Empty cart"
                 width={120}
                 height={120}
               />
-              {/* <Title
-                size="sm"
-                text="Cart is empty"
-                className="my-2 text-center font-bold"
-              /> */}
+              <h2 className="my-2 text-center font-bold">Cart is empty</h2>
               <p className="mb-5 text-center text-neutral-500">
                 Add at least one pizza to place an order
               </p>
 
-              <SheetClose>
+              <SheetClose asChild>
                 <Button className="h-12 w-56 text-base" size="lg">
                   <ArrowLeft className="mr-2 w-5" />
                   Go back
@@ -82,7 +84,7 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
 
           {totalAmount > 0 && (
             <>
-              <div className="-mx-6 mt-5 flex-1 overflow-auto">
+              <div className="mt-5 flex-1 overflow-auto">
                 {items.map((item) => (
                   <div key={item.id} className="mb-2">
                     <CartDrawerItem
@@ -106,7 +108,7 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 ))}
               </div>
 
-              <SheetFooter className="-mx-6 bg-white p-8">
+              <SheetFooter className="bg-white p-8">
                 <div className="w-full">
                   <div className="mb-4 flex">
                     <span className="flex flex-1 text-lg text-neutral-500">
@@ -117,17 +119,18 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                     <span className="text-lg font-bold">{totalAmount} ₽</span>
                   </div>
 
-                  <Link href="/checkout">
-                    <Button
-                      onClick={() => setRedirecting(true)}
-                      loading={redirecting}
-                      type="submit"
-                      className="h-12 w-full text-base"
-                    >
-                      Place an order
-                      <ArrowRight className="ml-2 w-5" />
-                    </Button>
-                  </Link>
+                  <Button
+                    onClick={() => {
+                      setRedirecting(true);
+                      router.push("/checkout");
+                    }}
+                    loading={redirecting}
+                    type="submit"
+                    className="h-12 w-full text-base"
+                  >
+                    Place an order
+                    <ArrowRight className="ml-2 w-5" />
+                  </Button>
                 </div>
               </SheetFooter>
             </>

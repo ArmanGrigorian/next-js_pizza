@@ -44,6 +44,8 @@ export const createCartStore = (
       try {
         set({ loading: true, error: false });
         const data = await API.cart.getCart();
+        console.log(data);
+        
         set(getCartDetails(data));
       } catch (error) {
         console.error(error);

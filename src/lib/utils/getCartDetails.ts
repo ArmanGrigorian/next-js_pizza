@@ -20,7 +20,7 @@ import { calcCartItemTotalPrice } from "./calcCartItemTotalPrice";
  *   - `totalAmount`: The cart's total price
  */
 export const getCartDetails = (data: CartDTO): GetCartDetailsReturnProps => {
-  const items = data.items.map((item) => ({
+  const items = data.cartItem.map((item) => ({
     id: item.id,
     quantity: item.quantity,
     name: item.productItem.product.name,
