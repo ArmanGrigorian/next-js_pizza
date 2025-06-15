@@ -1,4 +1,5 @@
-import { cn, getLowResSrc } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { getLowResSrc } from "@/lib/utils/getLowResSrc";
 import Image from "next/image";
 
 interface PizzaImageProps {

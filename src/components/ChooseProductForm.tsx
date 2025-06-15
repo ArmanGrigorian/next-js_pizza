@@ -1,42 +1,38 @@
 import { Button } from "@/components";
 import type { ProductWithRelations } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 interface Props {
   product: ProductWithRelations;
   loading?: boolean;
   onSubmit?: VoidFunction;
-  className?: string;
 }
 
-const ChooseProductForm: React.FC<Props> = ({
-  product,
-  onSubmit,
-  className,
-  loading,
-}) => {
-  return (
-    <div className={cn(className, "flex flex-1")}>
-      <div className="relative flex w-full flex-1 items-center justify-center">
-        <Image
-          src={product.imageUrl}
-          width={240}
-          height={240}
-          alt={product.name}
-          className="relative top-2 left-2 z-10 size-[240px] transition-all duration-300"
-        />
-      </div>
+const ChooseProductForm: React.FC<Props> = ({ product, onSubmit, loading }) => {
+  const actualPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(product.productItems[0].price);
 
-      <div className="w-[490px] bg-[#f7f6f5] p-7">
-        <h3 className="mb-1 font-extrabold">{product.name}</h3>
+  return (
+    <div className="flex flex-col items-center justify-between gap-1 p-3 lg:flex-row lg:items-stretch lg:p-5">
+      <Image
+        src={product.imageUrl}
+        width={240}
+        height={240}
+        alt={product.name}
+        className="relative size-20 flex-1 object-contain lg:size-[240px]"
+      />
+
+      <div className="flex w-full flex-col justify-between lg:w-[490px]">
+        <h3 className="text-lg font-extrabold lg:text-2xl">{product.name}</h3>
 
         <Button
           loading={loading}
           onClick={() => onSubmit?.()}
-          className="mt-10 h-[55px] w-full rounded-[18px] px-10 text-base"
+          className="h-10 w-full rounded-md px-4 text-base lg:h-11"
         >
-          Add to cart {product.productItems[0].price} $
+          Add to cart {actualPrice}
         </Button>
       </div>
     </div>

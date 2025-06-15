@@ -9,21 +9,15 @@ import {
 import { useMediaQuery, usePizzaOptions } from "@/hooks";
 import { type PizzaDough, pizzaDoughs, type PizzaSize } from "@/lib/constants";
 import type { ProductWithRelations } from "@/lib/types";
-import { cn, getPizzaDetails } from "@/lib/utils";
+import { getPizzaDetails } from "@/lib/utils/getPizzaDetails";
 
 interface Props {
   product: ProductWithRelations;
   loading?: boolean;
   onSubmit: (itemId: number, ingredients: number[]) => void;
-  className?: string;
 }
 
-const ChoosePizzaForm: React.FC<Props> = ({
-  product,
-  loading,
-  onSubmit,
-  className,
-}) => {
+const ChoosePizzaForm: React.FC<Props> = ({ product, loading, onSubmit }) => {
   const {
     size,
     dough,
@@ -51,7 +45,7 @@ const ChoosePizzaForm: React.FC<Props> = ({
   };
 
   return (
-    <article className={cn(className, "flex flex-1 flex-col lg:flex-row")}>
+    <article className="flex flex-1 flex-col lg:flex-row">
       <PizzaImage
         src={product.imageUrl}
         size={isDesktop ? size : 10}
@@ -81,7 +75,7 @@ const ChoosePizzaForm: React.FC<Props> = ({
           />
         </div>
 
-        <ul className="scrollbar grid grid-flow-col gap-3 overflow-auto rounded-md bg-gray-50 p-4 shadow lg:grid-flow-row [grid-template-columns:repeat(auto-fill,_minmax(96px,1fr))]">
+        <ul className="scrollbar grid grid-flow-col [grid-template-columns:repeat(auto-fill,_minmax(96px,1fr))] gap-3 overflow-auto rounded-md bg-gray-50 p-4 shadow lg:grid-flow-row">
           {product.ingredients.map((ingredient) => (
             <IngredientItem
               key={ingredient.id}

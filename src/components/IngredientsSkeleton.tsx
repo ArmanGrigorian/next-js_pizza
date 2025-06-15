@@ -3,16 +3,14 @@ import { Skeleton } from "@/components";
 interface IngredientsSkeletonProps {
   title: string;
   limit: number;
-  className?: string;
 }
 
 const IngredientsSkeleton: React.FC<IngredientsSkeletonProps> = ({
   title,
   limit,
-  className,
 }) => {
   return (
-    <div className={className}>
+    <div>
       <p className="mb-3 font-bold">{title}</p>
 
       {...new Array(limit)

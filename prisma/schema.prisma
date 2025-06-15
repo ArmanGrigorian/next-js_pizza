@@ -109,7 +109,7 @@ model Ingredient {
   id Int @id @default(autoincrement())
 
   name     String
-  price    Int
+  price    Float
   imageUrl String
 
   createdAt DateTime @default(now())
@@ -140,7 +140,7 @@ model Product {
 model ProductItem {
   id Int @id @default(autoincrement())
 
-  price Int
+  price Float
   size  Int?
   dough Int?
 

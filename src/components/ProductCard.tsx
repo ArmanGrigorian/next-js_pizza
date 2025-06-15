@@ -2,30 +2,26 @@ import Link from "next/link";
 
 import { Button } from "@/components";
 import type { ProductWithRelations } from "@/lib/types";
-import { getLowResSrc } from "@/lib/utils";
+
+import { getLowResSrc } from "@/lib/utils/getLowResSrc";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
 interface ProductCardProps {
   product: ProductWithRelations;
-  className?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, className }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const actualPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(product.productItems[0].price / 4.75);
+  }).format(product.productItems[0].price);
 
   const lowResSrc = getLowResSrc(product.imageUrl);
 
   return (
     <article>
-      <Link
-        href={`/product/${product.id}`}
-        className={className}
-        scroll={false}
-      >
+      <Link href={`/product/${product.id}`} scroll={false}>
         <div className="flex h-53 justify-center rounded-lg bg-gray-50 p-6 lg:h-64">
           <Image
             src={product.imageUrl}

@@ -2,7 +2,6 @@
 
 import { useMediaQuery } from "@/hooks";
 import type { ProductWithRelations } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 import {
@@ -18,13 +17,9 @@ import { ProductForm } from "../ProductForm";
 
 interface ChooseProductModalProps {
   product: ProductWithRelations;
-  className?: string;
 }
 
-const ChooseProductModal: React.FC<ChooseProductModalProps> = ({
-  product,
-  className,
-}) => {
+const ChooseProductModal: React.FC<ChooseProductModalProps> = ({ product }) => {
   const router = useRouter();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
@@ -40,7 +35,7 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({
           <DialogHeader>
             <DialogTitle hidden>{product.name}</DialogTitle>
           </DialogHeader>
-          <DialogContent className={cn("min-w-[960px] bg-white", className)}>
+          <DialogContent className="min-w-[960px] bg-white p-0">
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DialogContent>
         </Dialog>
@@ -54,7 +49,7 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({
           <DrawerHeader>
             <DialogTitle hidden>Choose a product</DialogTitle>
           </DrawerHeader>
-          <DrawerContent className={cn("bg-white", className)}>
+          <DrawerContent className="bg-white p-0">
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DrawerContent>
         </Drawer>

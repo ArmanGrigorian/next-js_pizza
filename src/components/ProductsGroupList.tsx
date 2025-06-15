@@ -1,7 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-
 import { ProductCard } from "@/components";
 import type { CategoryWithRelations } from "@/lib/types";
 import { RefObject, useEffect, useRef } from "react";
@@ -10,15 +8,9 @@ import { useCategoryStore } from "./providers/StoreProvider";
 
 interface ProductsGroupListProps {
   category: CategoryWithRelations;
-  className?: string;
-  listClassName?: string;
 }
 
-const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
-  category,
-  className,
-  listClassName,
-}) => {
+const ProductsGroupList: React.FC<ProductsGroupListProps> = ({ category }) => {
   const { activeCategory, setActiveCategory } = useCategoryStore();
   const intersectionRef = useRef<HTMLDivElement>(
     null,
@@ -36,17 +28,12 @@ const ProductsGroupList: React.FC<ProductsGroupListProps> = ({
   }, [intersection?.isIntersecting]);
 
   return (
-    <section className={className} id={category.name} ref={intersectionRef}>
+    <section id={category.name} ref={intersectionRef}>
       <h2 className="text-custom-black-200 mb-5 text-3xl font-bold lg:text-4xl">
         {category.name}
       </h2>
 
-      <div
-        className={cn(
-          "grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-5 lg:gap-10",
-          listClassName,
-        )}
-      >
+      <div className="grid [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))] gap-5 lg:gap-10">
         {category.products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

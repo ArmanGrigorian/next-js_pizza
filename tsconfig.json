@@ -23,6 +23,7 @@
       "@/components/": ["./src/components/index.ts"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/lib/*": ["./src/lib/*"],
+      "@/types": ["./src/lib/types.ts"],
       "@/utils": ["./src/lib/utils.ts"],
       "@/prisma/*": ["./prisma/*"]
     }

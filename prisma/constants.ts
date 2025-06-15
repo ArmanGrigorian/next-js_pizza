@@ -19,67 +19,67 @@ export const categories = [
 export const ingredients = [
   {
     name: "Cheese Side",
-    price: 179,
+    price: 38,
     imageUrl: "/images/cheese-side.png",
   },
   {
     name: "Creamy Mozzarella",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/creamy-mozzarella.png",
   },
   {
     name: "Cheddar And Parmesan",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/cheddar-and-parmesan.png",
   },
   {
     name: "Hot Jalapeno Pepper",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/hot-jalapeno-pepper.png",
   },
   {
     name: "Tender Chicken",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/tender-chicken.png",
   },
   {
     name: "Champignons",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/champignons.png",
   },
   {
     name: "Ham",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/ham.png",
   },
   {
     name: "Piquant Pepperoni",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/piquant-pepperoni.png",
   },
   {
     name: "Spicy Chorizo",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/spicy-chorizo.png",
   },
   {
     name: "Pickled Cucumbers",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/pickled-cucumbers.png",
   },
   {
     name: "Fresh Tomatoes",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/fresh-tomatoes.png",
   },
   {
     name: "Red Onion",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/red-onion.png",
   },
   {
     name: "Juicy Pineapples",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/juicy-pineapples.png",
   },
   {
@@ -89,17 +89,17 @@ export const ingredients = [
   },
   {
     name: "Sweet Pepper",
-    price: 59,
+    price: 12.5,
     imageUrl: "/images/sweet-pepper.png",
   },
   {
     name: "Cubes Of Feta Cheese",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/cubes-of-feta-cheese.png",
   },
   {
     name: "Meatballs",
-    price: 79,
+    price: 16.8,
     imageUrl: "/images/meatballs.png",
   },
 ].map((obj, index) => ({ id: index + 1, ...obj }));

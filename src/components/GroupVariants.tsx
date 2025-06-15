@@ -12,22 +12,15 @@ interface GroupVariantsProps {
   items: readonly VariantType[];
   onClick?: (value: VariantType["value"]) => void;
   value?: VariantType["value"];
-  className?: string;
 }
 
 const GroupVariants: React.FC<GroupVariantsProps> = ({
   items,
   onClick,
-  className,
   value,
 }) => {
   return (
-    <div
-      className={cn(
-        className,
-        "flex justify-between rounded-3xl bg-[#F3F3F7] p-1 select-none",
-      )}
-    >
+    <div className="flex justify-between rounded-3xl bg-[#F3F3F7] p-1 select-none">
       {items.map((item) => (
         <button
           key={item.name}

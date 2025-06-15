@@ -1,6 +1,6 @@
 import { VariantType } from "@/components/GroupVariants";
 import type { PizzaDough, PizzaSize } from "@/lib/constants";
-import { getAvailablePizzaSizes } from "@/lib/utils";
+import { getAvailablePizzaSizes } from "@/lib/utils/getAvailablePizzaSizes";
 import { ProductItem } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useSet } from "react-use";
@@ -38,7 +38,7 @@ const usePizzaOptions = (items: ProductItem[]): ReturnProps => {
     if (!isAvailableSize && availableSize) {
       setSize(Number(availableSize.value) as PizzaSize);
     }
-  }, [dough]);
+  }, [dough, size, availableSizes]);
 
   return {
     size,

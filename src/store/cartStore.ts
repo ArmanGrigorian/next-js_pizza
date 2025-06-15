@@ -1,8 +1,7 @@
 import type { CartStateItem, CreateCartItemValues } from "@/lib/types";
-import { createStore } from "zustand/vanilla";
-
-import { getCartDetails } from "@/lib/utils";
+import { getCartDetails } from "@/lib/utils/getCartDetails";
 import { API } from "@/services/api-client";
+import { createStore } from "zustand/vanilla";
 
 export type CartStateType = {
   loading: boolean;

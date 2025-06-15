@@ -1,4 +1,5 @@
-import { cn, getLowResSrc } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { getLowResSrc } from "@/lib/utils/getLowResSrc";
 import type { Ingredient } from "@prisma/client";
 import { CircleCheck } from "lucide-react";
 import Image from "next/image";
@@ -7,23 +8,24 @@ interface IngredientItemProps {
   ingredient: Ingredient;
   active?: boolean;
   onClick?: () => void;
-  className?: string;
 }
 
 const IngredientItem: React.FC<IngredientItemProps> = ({
   ingredient,
   active,
   onClick,
-  className,
 }) => {
   const lowResSrc = getLowResSrc(ingredient.imageUrl);
+  const actualPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(ingredient.price);
 
   return (
     <li
       className={cn(
-        "relative row-span-3 min-w-[96px] grid size-full gap-1 cursor-pointer grid-rows-subgrid justify-items-center rounded-md bg-white p-2 lg:p-3 text-center shadow-md",
+        "relative row-span-3 grid size-full min-w-[96px] cursor-pointer grid-rows-subgrid justify-items-center gap-1 rounded-md bg-white p-2 text-center shadow-md lg:p-3",
         { "outline-primary outline": active },
-        className,
       )}
       onClick={onClick}
     >
@@ -35,13 +37,13 @@ const IngredientItem: React.FC<IngredientItemProps> = ({
         height={64}
         alt={ingredient.name}
         src={ingredient.imageUrl}
-        className="size-12 lg:size-16 object-contain"
+        className="size-12 object-contain lg:size-16"
         loading="lazy"
         placeholder="blur"
         blurDataURL={lowResSrc}
       />
       <span className="text-xs lg:text-sm">{ingredient.name}</span>
-      <strong className="text-sm font-bold">{ingredient.price} $</strong>
+      <strong className="text-sm font-bold">{actualPrice}</strong>
     </li>
   );
 };
