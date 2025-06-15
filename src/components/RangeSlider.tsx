@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import React, { useEffect, useState } from "react";
+import { forwardRef, Fragment, useEffect, useState } from "react";
 
 interface RangeSliderProps {
   className?: string;
@@ -14,7 +14,7 @@ interface RangeSliderProps {
   onValueChange?: (values: [number, number]) => void;
 }
 
-const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
+const RangeSlider: React.FC<RangeSliderProps> = forwardRef(
   (
     { className, min, max, step, formatLabel, value, onValueChange, ...props },
     ref,
@@ -51,12 +51,13 @@ const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
           <SliderPrimitive.Range className="bg-primary absolute h-full" />
         </SliderPrimitive.Track>
         {localValues.map((value, index) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <div
               className="absolute text-center"
               style={{
-                left: `calc(${((value - min) / (max - min)) * 90}% + 0px)`,
-                top: `10px`,
+                left: `calc(${((value - min) / (max - min)) * 100}%)`,
+                top: "10px",
+                transform: index === 0 ? "translateX(0%)" : "translateX(-100%)",
               }}
             >
               <span className="text-sm">
@@ -64,7 +65,7 @@ const RangeSlider: React.FC<RangeSliderProps> = React.forwardRef(
               </span>
             </div>
             <SliderPrimitive.Thumb className="border-primary/50 focus-visible:ring-ring block h-4 w-4 rounded-full border bg-white shadow transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" />
-          </React.Fragment>
+          </Fragment>
         ))}
       </SliderPrimitive.Root>
     );

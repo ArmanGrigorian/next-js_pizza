@@ -39,8 +39,8 @@ export type CartStateItem = {
   imageUrl: string;
   price: number;
   disabled?: boolean;
-  pizzaSize?: number | null;
-  pizzaType?: number | null;
+  size?: number | null;
+  dough?: number | null;
   ingredients: Array<{ name: string; price: number }>;
 };
 
