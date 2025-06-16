@@ -1,12 +1,27 @@
+"use client";
+
 import { Button, CartDrawer } from "@/components";
+import { cn } from "@/lib/utils";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import React from "react";
+import { useCartStore } from "../providers/StoreProvider";
 
 const CartButton: React.FC = () => {
+  const { cartItems, totalPrice, loading } = useCartStore();
+  const actualPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(totalPrice);
+
   return (
     <CartDrawer>
-      <Button className="group relative flex items-center">
-        <strong>520 $</strong>
+      <Button
+        loading={loading}
+        className={cn("group relative flex items-center", {
+          "w-[105px]": loading,
+        })}
+      >
+        <strong>{actualPrice}</strong>
         <div className="mx-2 h-full w-px bg-white/30" />
         <div className="flex items-center gap-1 transition duration-300 group-hover:opacity-0">
           <ShoppingCart
@@ -14,7 +29,7 @@ const CartButton: React.FC = () => {
             className="relative h-auto w-4"
             strokeWidth={2}
           />
-          <strong>3</strong>
+          <strong>{cartItems.length}</strong>
         </div>
         <ArrowRight
           size={16}
