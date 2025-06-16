@@ -6,8 +6,8 @@ import { createStore } from "zustand/vanilla";
 export type CartStateType = {
   loading: boolean;
   error: boolean;
-  totalAmount: number;
-  items: CartStateItem[];
+  totalPrice: number;
+  cartItems: CartStateItem[];
 };
 
 export type CartActionsType = {
@@ -21,18 +21,18 @@ export type CartStoreType = CartStateType & CartActionsType;
 
 export const initCartStore = (): CartStateType => {
   return {
-    items: [],
+    cartItems: [],
     error: false,
     loading: false,
-    totalAmount: 0,
+    totalPrice: 0,
   };
 };
 
 export const defaultInitState: CartStateType = {
-  items: [],
+  cartItems: [],
   error: false,
   loading: false,
-  totalAmount: 0,
+  totalPrice: 0,
 };
 
 export const createCartStore = (
@@ -44,12 +44,16 @@ export const createCartStore = (
       try {
         set({ loading: true, error: false });
         const data = await API.cart.getCart();
-        console.log(data);
         
+        if (!data) {
+          set({ error: true, cartItems: [], totalPrice: 0 });
+          return;
+        }
+
         set(getCartDetails(data));
       } catch (error) {
-        console.error(error);
-        set({ error: true });
+        console.error("[CART_FETCH] Error:", error);
+        set({ error: true, cartItems: [], totalPrice: 0 });
       } finally {
         set({ loading: false });
       }
@@ -59,9 +63,15 @@ export const createCartStore = (
       try {
         set({ loading: true, error: false });
         const data = await API.cart.updateItemQuantity(id, quantity);
+        
+        if (!data) {
+          set({ error: true });
+          return;
+        }
+
         set(getCartDetails(data));
       } catch (error) {
-        console.error(error);
+        console.error("[CART_UPDATE] Error:", error);
         set({ error: true });
       } finally {
         set({ loading: false });
@@ -73,19 +83,25 @@ export const createCartStore = (
         set((state) => ({
           loading: true,
           error: false,
-          items: state.items.map((item) =>
+          cartItems: state.cartItems.map((item) =>
             item.id === id ? { ...item, disabled: true } : item,
           ),
         }));
         const data = await API.cart.removeCartItem(id);
+        
+        if (!data) {
+          set({ error: true });
+          return;
+        }
+
         set(getCartDetails(data));
       } catch (error) {
-        console.error(error);
+        console.error("[CART_REMOVE] Error:", error);
         set({ error: true });
       } finally {
         set((state) => ({
           loading: false,
-          items: state.items.map((item) => ({ ...item, disabled: false })),
+          cartItems: state.cartItems.map((item) => ({ ...item, disabled: false })),
         }));
       }
     },
@@ -94,9 +110,15 @@ export const createCartStore = (
       try {
         set({ loading: true, error: false });
         const data = await API.cart.addCartItem(values);
+        
+        if (!data) {
+          set({ error: true });
+          return;
+        }
+
         set(getCartDetails(data));
       } catch (error) {
-        console.error(error);
+        console.error("[CART_ADD] Error:", error);
         set({ error: true });
       } finally {
         set({ loading: false });

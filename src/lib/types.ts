@@ -45,6 +45,6 @@ export type CartStateItem = {
 };
 
 export interface GetCartDetailsReturnProps {
-  items: CartStateItem[];
-  totalAmount: number;
+  cartItems: CartStateItem[];
+  totalPrice: number;
 }

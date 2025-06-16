@@ -22,7 +22,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
-  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const { totalPrice, updateItemQuantity, cartItems, removeCartItem } =
+    useCart();
   const [redirecting, setRedirecting] = useState(false);
   const router = useRouter();
 
@@ -47,20 +48,20 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
         <div
           className={cn(
             "flex h-full flex-col",
-            !totalAmount && "justify-center",
+            !totalPrice && "justify-center",
           )}
         >
-          {totalAmount > 0 && (
+          {totalPrice > 0 && (
             <SheetHeader>
               <SheetTitle>
                 <span className="font-bold">
-                  {items.length} products in cart
+                  {cartItems.length} products in cart
                 </span>
               </SheetTitle>
             </SheetHeader>
           )}
 
-          {!totalAmount && (
+          {!totalPrice && (
             <div className="mx-auto flex w-72 flex-col items-center justify-center">
               <Image
                 src="/images/empty-box.png"
@@ -82,10 +83,10 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
             </div>
           )}
 
-          {totalAmount > 0 && (
+          {totalPrice > 0 && (
             <>
               <div className="mt-5 flex-1 overflow-auto">
-                {items.map((item) => (
+                {cartItems.map((item) => (
                   <div key={item.id} className="mb-2">
                     <CartDrawerItem
                       id={item.id}
@@ -116,7 +117,7 @@ const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                       <div className="relative -top-1 mx-2 flex-1 border-b border-dashed border-b-neutral-200" />
                     </span>
 
-                    <span className="text-lg font-bold">{totalAmount} ₽</span>
+                    <span className="text-lg font-bold">{totalPrice} ₽</span>
                   </div>
 
                   <Button

@@ -19,7 +19,14 @@ import { calcCartItemTotalPrice } from "./calcCartItemTotalPrice";
  *   - `items`: An array of cart items formatted for state/UI
  *   - `totalAmount`: The cart's total price
  */
-export const getCartDetails = (data: CartDTO): GetCartDetailsReturnProps => {
+export const getCartDetails = (data: CartDTO | null | undefined): GetCartDetailsReturnProps => {
+  if (!data || !data.cartItem) {
+    return {
+      cartItems: [],
+      totalPrice: 0,
+    };
+  }
+
   const items = data.cartItem.map((item) => ({
     id: item.id,
     quantity: item.quantity,
@@ -36,7 +43,7 @@ export const getCartDetails = (data: CartDTO): GetCartDetailsReturnProps => {
   })) as CartStateItem[];
 
   return {
-    items,
-    totalAmount: data.totalPrice,
+    cartItems: items,
+    totalPrice: data.totalPrice || 0,
   };
 };

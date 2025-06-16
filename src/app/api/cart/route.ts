@@ -1,6 +1,6 @@
 import { CreateCartItemValues } from "@/lib/types";
 import { findOrCreateCart } from "@/lib/utils/findOrCreateCart";
-import { updateCartTotalAmount } from "@/lib/utils/updateCartTotalAmount";
+import { updateCartTotalPrice } from "@/lib/utils/updateCartTotalPrice";
 import { prisma } from "@/prisma/prisma-client";
 import crypto from "crypto";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,16 +10,12 @@ export async function GET(req: NextRequest) {
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ totalAmount: 0, items: [] });
+      return NextResponse.json({ totalPrice: 0, cartItems: [] });
     }
 
     const userCart = await prisma.cart.findFirst({
       where: {
-        OR: [
-          {
-            userToken: token,
-          },
-        ],
+        userToken: token,
       },
       include: {
         cartItem: {
@@ -38,13 +34,14 @@ export async function GET(req: NextRequest) {
       },
     });
 
+    if (!userCart) {
+      return NextResponse.json({ totalPrice: 0, cartItems: [] });
+    }
+
     return NextResponse.json(userCart);
   } catch (error) {
-    console.log("[CART_GET] Server error", error);
-    return NextResponse.json(
-      { message: "Failed to get cart" },
-      { status: 500 },
-    );
+    console.error("[CART_GET] Server error:", error);
+    return NextResponse.json({ error: "Failed to get cart" }, { status: 500 });
   }
 }
 
@@ -92,13 +89,13 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const updatedUserCart = await updateCartTotalAmount(token);
+    const updatedUserCart = await updateCartTotalPrice(token);
 
     const resp = NextResponse.json(updatedUserCart);
     resp.cookies.set("cartToken", token);
     return resp;
   } catch (error) {
-    console.log("[CART_POST] Server error", error);
+    console.error("[CART_POST] Server error:", error);
     return NextResponse.json(
       { message: "Failed to create cart" },
       { status: 500 },

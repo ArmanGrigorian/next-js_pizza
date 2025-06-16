@@ -1,4 +1,4 @@
-import { updateCartTotalAmount } from "@/lib/utils/updateCartTotalAmount";
+import { updateCartTotalPrice } from "@/lib/utils/updateCartTotalPrice";
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,17 +6,17 @@ type RouteContext = {
   params: Promise<{ id: string }>;
 };
 
-export async function PATCH(
-  req: NextRequest,
-  context: RouteContext,
-) {
+export async function PATCH(req: NextRequest, context: RouteContext) {
   try {
     const { id } = await context.params;
     const data = (await req.json()) as { quantity: number };
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Cart token not found" });
+      return NextResponse.json(
+        { error: "Cart token not found" },
+        { status: 401 }
+      );
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -28,7 +28,7 @@ export async function PATCH(
     if (!cartItem) {
       return NextResponse.json(
         { error: "Cart item not found" },
-        { status: 404 },
+        { status: 404 }
       );
     }
 
@@ -41,28 +41,35 @@ export async function PATCH(
       },
     });
 
-    const updatedUserCart = await updateCartTotalAmount(token);
+    const updatedUserCart = await updateCartTotalPrice(token);
+    
+    if (!updatedUserCart) {
+      return NextResponse.json(
+        { error: "Failed to update cart total price" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(updatedUserCart);
   } catch (error) {
-    console.log("[CART_PATCH] Server error", error);
+    console.error("[CART_PATCH] Server error", error);
     return NextResponse.json(
-      { message: "Failed to update cart" },
-      { status: 500 },
+      { error: "Failed to update cart item" },
+      { status: 500 }
     );
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  context: RouteContext,
-) {
+export async function DELETE(req: NextRequest, context: RouteContext) {
   try {
     const { id } = await context.params;
     const token = req.cookies.get("cartToken")?.value;
 
     if (!token) {
-      return NextResponse.json({ error: "Cart token not found" });
+      return NextResponse.json(
+        { error: "Cart token not found" },
+        { status: 401 }
+      );
     }
 
     const cartItem = await prisma.cartItem.findFirst({
@@ -72,7 +79,10 @@ export async function DELETE(
     });
 
     if (!cartItem) {
-      return NextResponse.json({ error: "Cart item not found" });
+      return NextResponse.json(
+        { error: "Cart item not found" },
+        { status: 404 }
+      );
     }
 
     await prisma.cartItem.delete({
@@ -81,14 +91,21 @@ export async function DELETE(
       },
     });
 
-    const updatedUserCart = await updateCartTotalAmount(token);
+    const updatedUserCart = await updateCartTotalPrice(token);
+    
+    if (!updatedUserCart) {
+      return NextResponse.json(
+        { error: "Failed to update cart total price" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json(updatedUserCart);
   } catch (error) {
-    console.log("[CART_DELETE] Server error", error);
+    console.error("[CART_DELETE] Server error", error);
     return NextResponse.json(
-      { message: "Failed to delete recycle bin" },
-      { status: 500 },
+      { error: "Failed to delete cart item" },
+      { status: 500 }
     );
   }
 }

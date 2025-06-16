@@ -38,6 +38,8 @@ model User {
 
   provider   String?
   providerId String?
+
+  @@index([email])
 }
 
 model Cart {
@@ -45,15 +47,17 @@ model Cart {
 
   totalPrice Float @default(0)
 
-  userToken String
+  userToken String @unique
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User? @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId Int?  @unique
 
   cartItem CartItem[]
+
+  @@index([userToken])
 }
 
 model CartItem {
@@ -64,13 +68,16 @@ model CartItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  cart   Cart @relation(fields: [cartId], references: [id])
+  cart   Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId Int
 
   productItem   ProductItem @relation(fields: [productItemId], references: [id])
   productItemId Int
 
   ingredients Ingredient[]
+
+  @@index([cartId])
+  @@index([productItemId])
 }
 
 model Order {
@@ -90,8 +97,12 @@ model Order {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User? @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId Int?
+
+  @@index([userToken])
+  @@index([status])
+  @@index([createdAt])
 }
 
 model Category {
@@ -103,6 +114,8 @@ model Category {
   updatedAt DateTime @updatedAt
 
   products Product[]
+
+  @@index([name])
 }
 
 model Ingredient {
@@ -118,6 +131,8 @@ model Ingredient {
   products Product[]
 
   cartItem CartItem[]
+
+  @@index([name])
 }
 
 model Product {
@@ -135,6 +150,9 @@ model Product {
   ingredients Ingredient[]
 
   productItems ProductItem[]
+
+  @@index([name])
+  @@index([categoryId])
 }
 
 model ProductItem {
@@ -151,6 +169,8 @@ model ProductItem {
   productId Int
 
   cartItems CartItem[]
+
+  @@index([productId])
 }
 
 model VerificationCode {
@@ -160,7 +180,7 @@ model VerificationCode {
 
   createdAt DateTime @default(now())
 
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique
 
   @@unique([userId, code])
@@ -174,6 +194,8 @@ model Story {
   createdAt DateTime @default(now())
 
   items StoryItem[]
+
+  @@index([createdAt])
 }
 
 model StoryItem {
@@ -183,6 +205,8 @@ model StoryItem {
 
   createdAt DateTime @default(now())
 
-  story   Story @relation(fields: [storyId], references: [id])
+  story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
   storyId Int
+
+  @@index([storyId])
 }

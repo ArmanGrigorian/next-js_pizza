@@ -3,8 +3,8 @@ import type { CartStateItem, CreateCartItemValues } from "@/lib/types";
 import { useEffect } from "react";
 
 type UseCartReturnProps = {
-  totalAmount: number;
-  items: CartStateItem[];
+  totalPrice: number;
+  cartItems: CartStateItem[];
   loading: boolean;
   updateItemQuantity: (id: number, quantity: number) => void;
   removeCartItem: (id: number) => void;
@@ -13,8 +13,8 @@ type UseCartReturnProps = {
 
 export const useCart = (): UseCartReturnProps => {
   const {
-    totalAmount,
-    items,
+    totalPrice,
+    cartItems,
     loading,
     updateItemQuantity,
     removeCartItem,
@@ -27,8 +27,8 @@ export const useCart = (): UseCartReturnProps => {
   }, [fetchCartItems]);
 
   return {
-    totalAmount,
-    items,
+    totalPrice,
+    cartItems,
     loading,
     updateItemQuantity,
     removeCartItem,

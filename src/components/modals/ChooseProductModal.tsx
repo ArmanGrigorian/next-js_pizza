@@ -7,10 +7,12 @@ import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
 } from "@/components";
 import { ProductForm } from "../ProductForm";
@@ -36,6 +38,7 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({ product }) => {
             <DialogTitle hidden>{product.name}</DialogTitle>
           </DialogHeader>
           <DialogContent className="min-w-[960px] bg-white p-0">
+            <DialogDescription hidden>Choose a product</DialogDescription>
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DialogContent>
         </Dialog>
@@ -50,6 +53,7 @@ const ChooseProductModal: React.FC<ChooseProductModalProps> = ({ product }) => {
             <DialogTitle hidden>Choose a product</DialogTitle>
           </DrawerHeader>
           <DrawerContent className="bg-white p-0">
+            <DrawerDescription hidden>Choose a product</DrawerDescription>
             <ProductForm product={product} onSubmit={() => router.back()} />
           </DrawerContent>
         </Drawer>
